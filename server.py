@@ -2,12 +2,15 @@
 
 import asyncio
 import websockets
+import json
 
 async def index(websocket, path):
-  data = await websocket.recv()
-  print(f"< {data}")
+  async for message in websocket:
+    data = json.loads(message)
 
-  await websocket.send('pong')
+    print(f"< {data}")
+
+    await websocket.send(json.dumps({ 'type': 'pong' }))
 
 start_server = websockets.serve(index, 'localhost', 8765)
 
