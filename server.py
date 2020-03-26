@@ -3,6 +3,7 @@
 import asyncio
 import websockets
 import json
+from enum import Enum
 
 traffic_lights_state = {
   'A1': 0,
@@ -50,11 +51,32 @@ traffic_lights_state = {
   'GV4': 0,
 
   'GF1': 0,
-  'GF2': 0,
+  'GF2': 0
 }
 
 
+class Color(Enum):
+  RED = 0
+  ORANGE = 1
+  GREEN = 2
+
+
+class CarTrafficLight:
+  """A car traffic light"""
+  state = Color.RED
+
+  def __init__(self, name):
+    self.name = name
+
+  def change_state(self, state):
+    self.state = state
+
+
 async def index(websocket, path):
+  a1 = CarTrafficLight('A1')
+  a1.change_state(Color.GREEN)
+  traffic_lights_state[a1.name] = a1.state.value
+
   async for message in websocket:
     data = json.loads(message)
 
