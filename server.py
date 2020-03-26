@@ -7,6 +7,7 @@ from enum import Enum
 
 traffic_light_ids = ['A1','A2','A3','A4','AB1','AB2','B1','B2','B3','B4','B5','BB1','C1','C2','C3','D1','D2','D3','E1','E2','EV1','EV2','EV3','EV4','FV1','FV2','FV3','FV4','FF1','FF2','GV1','GV2','GV3','GV4','GF1','GF2']
 
+
 class Color(Enum):
   RED = 0
   ORANGE = 1
@@ -16,8 +17,41 @@ class Color(Enum):
 class CarTrafficLight:
   """A car traffic light"""
 
-  def __init__(self, name):
-    self.name = name
+  def __init__(self, id):
+    self.id = id
+    self.state = Color.RED
+
+  def change_state(self, state):
+    self.state = state
+
+
+class BusTrafficLight:
+  """A bus traffic light"""
+
+  def __init__(self, id):
+    self.id = id
+    self.state = Color.RED
+
+  def change_state(self, state):
+    self.state = state
+
+
+class PedestrianTrafficLight:
+  """A pedestrian traffic light"""
+
+  def __init__(self, id):
+    self.id = id
+    self.state = Color.RED
+
+  def change_state(self, state):
+    self.state = state
+
+
+class CycleTrafficLight:
+  """A cycle traffic light"""
+
+  def __init__(self, id):
+    self.id = id
     self.state = Color.RED
 
   def change_state(self, state):
@@ -36,16 +70,12 @@ class World:
       traffic_light_type = id[1]    
 
       if traffic_light_type == 'B':
-        # Bus
-        pass
+        self.traffic_lights[id] = BusTrafficLight(id)
       elif traffic_light_type == 'V':
-        # Walk
-        pass
+        self.traffic_lights[id] = PedestrianTrafficLight(id)
       elif traffic_light_type == 'F':
-        # Bike
-        pass
+        self.traffic_lights[id] = CycleTrafficLight(id)
       else:
-        # Car
         self.traffic_lights[id] = CarTrafficLight(id)
 
   def get_state(self):
@@ -56,7 +86,6 @@ class World:
     
     return state
     
-
   
 async def index(websocket, path):
   world = World(traffic_light_ids)
@@ -68,6 +97,7 @@ async def index(websocket, path):
 
     payload = json.dumps(world.get_state())
     await websocket.send(payload)
+
 
 start_server = websockets.serve(index, 'localhost', 8765)
 
