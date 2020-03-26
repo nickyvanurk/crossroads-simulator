@@ -5,55 +5,7 @@ import websockets
 import json
 from enum import Enum
 
-traffic_lights_state = {
-  'A1': 0,
-  'A2': 0,
-  'A3': 0,
-  'A4': 0,
-
-  'AB1': 0,
-  'AB2': 0,
-
-  'B1': 0,
-  'B2': 0,
-  'B3': 0,
-  'B4': 0,
-
-  'BB1': 0,
-
-  'C1': 0,
-  'C2': 0,
-  'C3': 0,
-
-  'D1': 0,
-  'D2': 0,
-  'D3': 0,
-
-  'E1': 0,
-  'E2': 0,
-
-  'EV1': 0,
-  'EV2': 0,
-  'EV3': 0,
-  'EV4': 0,
-
-  'FV1': 0,
-  'FV2': 0,
-  'FV3': 0,
-  'FV4': 0,
-
-  'FF1': 0,
-  'FF2': 0,
-
-  'GV1': 0,
-  'GV2': 0,
-  'GV3': 0,
-  'GV4': 0,
-
-  'GF1': 0,
-  'GF2': 0
-}
-
+traffic_light_ids = ['A1','A2','A3','A4','AB1','AB2','B1','B2','B3','B4','B5','BB1','C1','C2','C3','D1','D2','D3','E1','E2','EV1','EV2','EV3','EV4','FV1','FV2','FV3','FV4','FF1','FF2','GV1','GV2','GV3','GV4','GF1','GF2']
 
 class Color(Enum):
   RED = 0
@@ -63,26 +15,58 @@ class Color(Enum):
 
 class CarTrafficLight:
   """A car traffic light"""
-  state = Color.RED
 
   def __init__(self, name):
     self.name = name
+    self.state = Color.RED
 
   def change_state(self, state):
     self.state = state
 
 
+class World:
+  """A world containg all traffic lights logic"""
+
+  def __init__(self, traffic_light_ids):
+    self.traffic_lights = { }
+    self.generate_traffic_lights(traffic_light_ids)
+
+  def generate_traffic_lights(self, traffic_light_ids):
+    for id in traffic_light_ids:
+      traffic_light_type = id[1]    
+
+      if traffic_light_type == 'B':
+        # Bus
+        pass
+      elif traffic_light_type == 'V':
+        # Walk
+        pass
+      elif traffic_light_type == 'F':
+        # Bike
+        pass
+      else:
+        # Car
+        self.traffic_lights[id] = CarTrafficLight(id)
+
+  def get_state(self):
+    state = { }
+
+    for key, traffic_light in self.traffic_lights.items():
+      state[key] = traffic_light.state.value
+    
+    return state
+    
+
+  
 async def index(websocket, path):
-  a1 = CarTrafficLight('A1')
-  a1.change_state(Color.GREEN)
-  traffic_lights_state[a1.name] = a1.state.value
+  world = World(traffic_light_ids)
 
   async for message in websocket:
     data = json.loads(message)
 
     print(f"< {data}")
 
-    payload = json.dumps(traffic_lights_state)
+    payload = json.dumps(world.get_state())
     await websocket.send(payload)
 
 start_server = websockets.serve(index, 'localhost', 8765)
