@@ -150,45 +150,13 @@ class Color(Enum):
   GREEN = 2
 
 
-class CarTrafficLight:
-  """A car traffic light"""
+class TrafficLight:
+  """A traffic light"""
 
-  def __init__(self, id):
+  def __init__(self, id, cardinal_direction):
     self.id = id
     self.state = Color.RED
-
-  def change_state(self, state):
-    self.state = state
-
-
-class BusTrafficLight:
-  """A bus traffic light"""
-
-  def __init__(self, id):
-    self.id = id
-    self.state = Color.RED
-
-  def change_state(self, state):
-    self.state = state
-
-
-class PedestrianTrafficLight:
-  """A pedestrian traffic light"""
-
-  def __init__(self, id):
-    self.id = id
-    self.state = Color.RED
-
-  def change_state(self, state):
-    self.state = state
-
-
-class CycleTrafficLight:
-  """A cycle traffic light"""
-
-  def __init__(self, id):
-    self.id = id
-    self.state = Color.RED
+    self.cardinal_direction = cardinal_direction
 
   def change_state(self, state):
     self.state = state
@@ -202,17 +170,17 @@ class World:
     self.generate_traffic_lights(traffic_light_data)
 
   def generate_traffic_lights(self, traffic_light_data):
-    for id, cardinal_directions in traffic_light_data.items():
+    for id, cardinal_direction in traffic_light_data.items():
       traffic_light_type = id[1]    
 
       if traffic_light_type == 'B':
-        self.traffic_lights[id] = BusTrafficLight(id)
+        self.traffic_lights[id] = TrafficLight(id, cardinal_direction)
       elif traffic_light_type == 'V':
-        self.traffic_lights[id] = PedestrianTrafficLight(id)
+        self.traffic_lights[id] = TrafficLight(id, cardinal_direction)
       elif traffic_light_type == 'F':
-        self.traffic_lights[id] = CycleTrafficLight(id)
+        self.traffic_lights[id] = TrafficLight(id, cardinal_direction)
       else:
-        self.traffic_lights[id] = CarTrafficLight(id)
+        self.traffic_lights[id] = TrafficLight(id, cardinal_direction)
 
   def get_state(self):
     state = { }
