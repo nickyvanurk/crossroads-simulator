@@ -5,6 +5,7 @@ import websockets
 import json
 from enum import Enum
 from eventemitter import EventEmitter
+from collections import OrderedDict
 
 # traffic_light_ids = ['A1','A2','A3','A4','AB1','AB2','B1','B2','B3','B4','B5','BB1','C1','C2','C3','D1','D2','D3','E1','E2','EV1','EV2','EV3','EV4','FV1','FV2','FV3','FV4','FF1','FF2','GV1','GV2','GV3','GV4','GF1','GF2']
 # traffic_light_groups = ['A2','A3','A4','B2','B3','B4',   'C2','C3','D2','D3',   'A1','E1','E2','EV1','EV2','EV3','EV4',    'B1','FV1','FV2','FV3','FV4','FF1','FF2','GV1','GV2','GV3','GV4','GF1','GF2',    'C1','E1','E2','EV1','EV2','EV3','EV4','FV1','FV2','FV3','FV4','FF1','FF2',    'D1','GV1','GV2','GV3','GV4','GF1','GF2']
@@ -178,6 +179,7 @@ active_roads = {
   'W': 0,
 }
 
+
 class Color(Enum):
   RED = 0
   ORANGE = 1
@@ -210,16 +212,14 @@ class TrafficLight:
       if active_roads[self.cardinal_direction['destination']] >= max_green_traffic_lights:
         return
 
+      emitter.emit('green-traffic-light', self.id)
       self.change_state(Color.GREEN)
       active_roads[self.cardinal_direction['destination']] += 1
-      print(active_roads)
 
       await asyncio.sleep(6)
 
       self.change_state(Color.RED)
       active_roads[self.cardinal_direction['destination']] -= 1
-      print(active_roads)
-
 
   def change_state(self, state):
     self.state = state
@@ -237,7 +237,7 @@ class World:
 
   def __init__(self, websocket, traffic_light_data):
     self.websocket = websocket
-    self.traffic_lights = { }
+    self.traffic_lights = OrderedDict()
     self.generate_traffic_lights(traffic_light_data)
 
   def generate_traffic_lights(self, traffic_light_data):
@@ -252,7 +252,7 @@ class World:
         self.traffic_lights[id] = TrafficLight(id, cardinal_direction)
       else:
         self.traffic_lights[id] = TrafficLight(id, cardinal_direction)
-
+    
   def process_simulation_state(self, simulation_state):
     for id, traffic_count in simulation_state.items():
       self.traffic_lights[id].set_has_traffic(True if traffic_count > 0 else False)
@@ -262,11 +262,14 @@ class World:
       for id, traffic_light in self.traffic_lights.items():
         asyncio.ensure_future(traffic_light.update())
 
-      await asyncio.sleep(1)
+      await asyncio.sleep(3)
 
   async def send_state(self):
     payload = json.dumps(self.get_state())
     await self.websocket.send(payload)
+  
+  def green_traffic_light_event(self, id):
+    self.traffic_lights.move_to_end(id)
 
   def get_state(self):
     state = { }
@@ -280,6 +283,7 @@ class World:
 async def index(websocket, path):
   world = World(websocket, traffic_light_data)
   emitter.on('state-change', world.send_state)
+  emitter.on('green-traffic-light', world.green_traffic_light_event)
 
   async for message in websocket:
     simulation_state = json.loads(message)
