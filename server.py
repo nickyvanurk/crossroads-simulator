@@ -158,6 +158,25 @@ traffic_light_data = {
 
 emitter = EventEmitter()
 
+road_exceptions = [
+  {
+    'origin': 'S',
+    'destination': 'N',
+    'max_green_traffic_lights': 2
+  },
+  {
+    'origin': 'N',
+    'destination': 'S',
+    'max_green_traffic_lights': 2
+  }
+]
+
+active_roads = {
+  'N': 0,
+  'E': 0,
+  'S': 0,
+  'W': 0,
+}
 
 class Color(Enum):
   RED = 0
@@ -174,13 +193,37 @@ class TrafficLight:
     self.cardinal_direction = cardinal_direction
     self.has_traffic = False
 
-  def update(self):
-    if self.has_traffic:
+  async def update(self):
+    if self.has_traffic and not self.state == Color.GREEN:
+      max_green_traffic_lights = 1
+
+      for road_exception in road_exceptions:
+        origin = road_exception['origin']
+        destination = road_exception['destination']
+        max_green_lights = road_exception['max_green_traffic_lights']
+
+        if (self.cardinal_direction['origin'] == origin and
+           self.cardinal_direction['destination'] == destination and
+           active_roads[self.cardinal_direction['destination']] < max_green_lights):
+          max_green_traffic_lights = max_green_lights
+
+      if active_roads[self.cardinal_direction['destination']] >= max_green_traffic_lights:
+        return
+
       self.change_state(Color.GREEN)
-      emitter.emit('state-change')
+      active_roads[self.cardinal_direction['destination']] += 1
+      print(active_roads)
+
+      await asyncio.sleep(6)
+
+      self.change_state(Color.RED)
+      active_roads[self.cardinal_direction['destination']] -= 1
+      print(active_roads)
+
 
   def change_state(self, state):
     self.state = state
+    emitter.emit('state-change')
 
   def get_has_traffic(self, has_traffic):
     return self.has_traffic
@@ -217,7 +260,7 @@ class World:
   async def update(self):
     while True:
       for id, traffic_light in self.traffic_lights.items():
-        traffic_light.update()
+        asyncio.ensure_future(traffic_light.update())
 
       await asyncio.sleep(1)
 

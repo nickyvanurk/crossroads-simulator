@@ -5,7 +5,7 @@ import websockets
 import json
 
 traffic_state = {
-  'A1': 1,
+  'A1': 0,
   'A2': 0,
   'A3': 0,
   'A4': 0,
