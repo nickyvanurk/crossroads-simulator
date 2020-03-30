@@ -4,6 +4,7 @@ import asyncio
 import websockets
 import json
 from enum import Enum
+from eventemitter import EventEmitter
 
 # traffic_light_ids = ['A1','A2','A3','A4','AB1','AB2','B1','B2','B3','B4','B5','BB1','C1','C2','C3','D1','D2','D3','E1','E2','EV1','EV2','EV3','EV4','FV1','FV2','FV3','FV4','FF1','FF2','GV1','GV2','GV3','GV4','GF1','GF2']
 # traffic_light_groups = ['A2','A3','A4','B2','B3','B4',   'C2','C3','D2','D3',   'A1','E1','E2','EV1','EV2','EV3','EV4',    'B1','FV1','FV2','FV3','FV4','FF1','FF2','GV1','GV2','GV3','GV4','GF1','GF2',    'C1','E1','E2','EV1','EV2','EV3','EV4','FV1','FV2','FV3','FV4','FF1','FF2',    'D1','GV1','GV2','GV3','GV4','GF1','GF2']
@@ -155,6 +156,8 @@ traffic_light_data = {
   }
 }
 
+emitter = EventEmitter()
+
 
 class Color(Enum):
   RED = 0
@@ -174,6 +177,7 @@ class TrafficLight:
   def update(self):
     if self.has_traffic:
       self.change_state(Color.GREEN)
+      emitter.emit('state-change')
 
   def change_state(self, state):
     self.state = state
@@ -188,7 +192,8 @@ class TrafficLight:
 class World:
   """A world containg all traffic lights logic"""
 
-  def __init__(self, traffic_light_data):
+  def __init__(self, websocket, traffic_light_data):
+    self.websocket = websocket
     self.traffic_lights = { }
     self.generate_traffic_lights(traffic_light_data)
 
@@ -211,15 +216,16 @@ class World:
     for id, traffic_count in traffic_lights_with_traffic.items():
       self.traffic_lights[id].set_has_traffic(True)
 
-  async def update(self, websocket):
+  async def update(self):
     while True:
       for id, traffic_light in self.traffic_lights.items():
         traffic_light.update()
-      
-      payload = json.dumps(self.get_state())
-      await websocket.send(payload)
 
       await asyncio.sleep(1)
+
+  async def send_state(self):
+    payload = json.dumps(self.get_state())
+    await self.websocket.send(payload)
 
   def get_state(self):
     state = { }
@@ -228,17 +234,19 @@ class World:
       state[key] = traffic_light.state.value
     
     return state
-    
+
   
 async def index(websocket, path):
-  world = World(traffic_light_data)
+  world = World(websocket, traffic_light_data)
+  emitter.on('state-change', world.send_state)
 
   async for message in websocket:
     simulation_state = json.loads(message)
 
     world.process_simulation_state(simulation_state)
 
-    asyncio.ensure_future(world.update(websocket))
+    asyncio.ensure_future(world.update())
+
 
 start_server = websockets.serve(index, 'localhost', 8765)
 
