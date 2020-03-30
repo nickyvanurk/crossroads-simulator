@@ -210,11 +210,9 @@ class World:
       else:
         self.traffic_lights[id] = TrafficLight(id, cardinal_direction)
 
-  def process_simulation_state(self, state):
-    traffic_lights_with_traffic = {k : v for k,v in state.items() if v > 0}
-
-    for id, traffic_count in traffic_lights_with_traffic.items():
-      self.traffic_lights[id].set_has_traffic(True)
+  def process_simulation_state(self, simulation_state):
+    for id, traffic_count in simulation_state.items():
+      self.traffic_lights[id].set_has_traffic(True if traffic_count > 0 else False)
 
   async def update(self):
     while True:
