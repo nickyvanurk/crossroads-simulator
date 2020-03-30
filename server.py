@@ -169,9 +169,20 @@ class TrafficLight:
     self.id = id
     self.state = Color.RED
     self.cardinal_direction = cardinal_direction
+    self.has_traffic = False
+
+  def update(self):
+    if self.has_traffic:
+      self.change_state(Color.GREEN)
 
   def change_state(self, state):
     self.state = state
+
+  def get_has_traffic(self, has_traffic):
+    return self.has_traffic
+
+  def set_has_traffic(self, has_traffic):
+    self.has_traffic = has_traffic
 
 
 class World:
@@ -194,6 +205,22 @@ class World:
       else:
         self.traffic_lights[id] = TrafficLight(id, cardinal_direction)
 
+  def process_simulation_state(self, state):
+    traffic_lights_with_traffic = {k : v for k,v in state.items() if v > 0}
+
+    for id, traffic_count in traffic_lights_with_traffic.items():
+      self.traffic_lights[id].set_has_traffic(True)
+
+  async def update(self, websocket):
+    while True:
+      for id, traffic_light in self.traffic_lights.items():
+        traffic_light.update()
+      
+      payload = json.dumps(self.get_state())
+      await websocket.send(payload)
+
+      await asyncio.sleep(1)
+
   def get_state(self):
     state = { }
 
@@ -207,12 +234,11 @@ async def index(websocket, path):
   world = World(traffic_light_data)
 
   async for message in websocket:
-    data = json.loads(message)
+    simulation_state = json.loads(message)
 
-    print(f"< {data}")
+    world.process_simulation_state(simulation_state)
 
-    payload = json.dumps(world.get_state())
-    await websocket.send(payload)
+    asyncio.ensure_future(world.update(websocket))
 
 start_server = websockets.serve(index, 'localhost', 8765)
 
