@@ -65,6 +65,18 @@ traffic_light_data = {
     'origin': 'E',
     'destination': 'W'
   },
+  'C3': {
+    'origin': 'E',
+    'destination': 'N'
+  },
+  'D1': {
+    'origin': 'W',
+    'destination': 'N'
+  },
+  'D2': {
+    'origin': 'W',
+    'destination': 'E'
+  },
   'D3': {
     'origin': 'W',
     'destination': 'S'
@@ -93,6 +105,14 @@ traffic_light_data = {
     'origin': 'N',
     'destination': 'N'
   },
+  'FF1': {
+    'origin': 'W',
+    'destination': 'W'
+  },
+  'FF2': {
+    'origin': 'W',
+    'destination': 'W'
+  },
   'FV1': {
     'origin': 'W',
     'destination': 'W'
@@ -109,13 +129,13 @@ traffic_light_data = {
     'origin': 'W',
     'destination': 'W'
   },
-  'FF1': {
-    'origin': 'W',
-    'destination': 'W'
+  'GF1': {
+    'origin': 'S',
+    'destination': 'S'
   },
-  'FF2': {
-    'origin': 'W',
-    'destination': 'W'
+  'GF2': {
+    'origin': 'S',
+    'destination': 'S'
   },
   'GV1': {
     'origin': 'S',
@@ -130,14 +150,6 @@ traffic_light_data = {
     'destination': 'S'
   },
   'GV4': {
-    'origin': 'S',
-    'destination': 'S'
-  },
-  'GF1': {
-    'origin': 'S',
-    'destination': 'S'
-  },
-  'GF2': {
     'origin': 'S',
     'destination': 'S'
   }
@@ -201,7 +213,6 @@ async def index(websocket, path):
 
     payload = json.dumps(world.get_state())
     await websocket.send(payload)
-
 
 start_server = websockets.serve(index, 'localhost', 8765)
 
