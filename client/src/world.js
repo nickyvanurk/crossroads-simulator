@@ -1,3 +1,5 @@
+import TrafficLight from './traffic_light';
+
 class World {
   constructor() {
     this.canvas = document.getElementById('canvas');
@@ -5,6 +7,8 @@ class World {
 
     this.ctx.canvas.width  = 937;
     this.ctx.canvas.height = 829;
+
+    window.addEventListener('mousemove', this.onmousemove);
 
     const background = new Image();
     background.src = './img/crossroads.png';
@@ -16,11 +20,21 @@ class World {
   }
   
   onload() {
-    this.ctx.beginPath();
-    this.ctx.lineWidth = "6";
-    this.ctx.strokeStyle = "red";
-    this.ctx.rect(5, 5, 290, 140);
-    this.ctx.stroke();
+    this.traffic_lights = [];
+    this.traffic_lights.push(new TrafficLight({ x: 342, y: 398}));
+    this.traffic_lights.push(new TrafficLight({ x: 342, y: 419}));
+    this.traffic_lights.push(new TrafficLight({ x: 342, y: 442}));
+  }
+
+  onmousemove(event) {
+    const rect = this.canvas.getBoundingClientRect();
+    const pos = {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top
+    };
+
+    console.log(pos);
+
   }
 
   update() {
@@ -28,7 +42,9 @@ class World {
   }
 
   draw() {
-    
+    for (const index in this.traffic_lights) {
+      this.traffic_lights[index].draw(this.ctx);
+    }
   }
 }
 
