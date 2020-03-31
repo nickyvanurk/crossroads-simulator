@@ -1,5 +1,6 @@
 export default class TrafficLight {
-  constructor(position) {
+  constructor(id, position) {
+    this.id = id;
     this.position = position;
   }
   
