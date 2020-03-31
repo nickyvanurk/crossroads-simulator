@@ -190,7 +190,26 @@ class TrafficLight:
 
   def can_cross(self, dir1, dir2):
     if (self.is_intersect(dir1, dir2, 'N', 'E', 'S', 'N') or 
-        self.is_intersect(dir1, dir2, 'N', 'E', 'E', 'W')):
+        self.is_intersect(dir1, dir2, 'N', 'E', 'E', 'W') or
+        self.is_intersect(dir1, dir2, 'N', 'E', 'W', 'N') or
+        self.is_intersect(dir1, dir2, 'N', 'E', 'E', 'S') or
+
+
+        self.is_intersect(dir1, dir2, 'S', 'W', 'N', 'S') or
+        self.is_intersect(dir1, dir2, 'S', 'W', 'N', 'E') or
+        self.is_intersect(dir1, dir2, 'S', 'W', 'W', 'E') or
+
+        self.is_intersect(dir1, dir2, 'E', 'S', 'S', 'N') or
+        self.is_intersect(dir1, dir2, 'E', 'S', 'S', 'W') or
+
+        self.is_intersect(dir1, dir2, 'W', 'E', 'S', 'N') or
+        self.is_intersect(dir1, dir2, 'W', 'E', 'N', 'S') or
+        self.is_intersect(dir1, dir2, 'W', 'E', 'E', 'S') or
+
+        self.is_intersect(dir1, dir2, 'W', 'N', 'E', 'W') or
+        self.is_intersect(dir1, dir2, 'W', 'N', 'S', 'W') or
+        self.is_intersect(dir1, dir2, 'W', 'N', 'N', 'S') or
+        self.is_intersect(dir1, dir2, 'W', 'N', 'E', 'S')):
       return False
 
     return True
@@ -222,7 +241,7 @@ class TrafficLight:
       self.change_state(Color.GREEN)
       active_roads[self.cardinal_direction['destination']].append(self)
       
-      await asyncio.sleep(6)
+      await asyncio.sleep(1.5)
 
       self.change_state(Color.RED)
       active_roads[self.cardinal_direction['destination']].remove(self)
