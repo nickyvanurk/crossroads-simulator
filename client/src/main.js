@@ -1,3 +1,13 @@
+import world from './world';
+
+window.requestAnimationFrame(gameLoop);
+
+function gameLoop() {
+  world.update();
+  world.draw();
+  window.requestAnimationFrame(gameLoop);
+}
+
 const socket = new WebSocket('ws://localhost:8765');
 
 socket.addEventListener('open', (event) => {
@@ -55,4 +65,3 @@ socket.addEventListener('open', (event) => {
 socket.addEventListener('message', (event) => {
   console.log('Message from server ', event.data);
 });
-
