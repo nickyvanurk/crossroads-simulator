@@ -159,24 +159,11 @@ traffic_light_data = {
 
 emitter = EventEmitter()
 
-road_exceptions = [
-  {
-    'origin': 'S',
-    'destination': 'N',
-    'max_green_traffic_lights': 2
-  },
-  {
-    'origin': 'N',
-    'destination': 'S',
-    'max_green_traffic_lights': 2
-  }
-]
-
 active_roads = {
-  'N': 0,
-  'E': 0,
-  'S': 0,
-  'W': 0,
+  'N': [],
+  'E': [],
+  'S': [],
+  'W': [],
 }
 
 
@@ -195,31 +182,50 @@ class TrafficLight:
     self.cardinal_direction = cardinal_direction
     self.has_traffic = False
 
+  def is_intersect(self, dir1, dir2, card1, card2, card3, card4):
+    return ((dir1['origin'] == card1 and dir1['destination'] == card2 and
+             dir2['origin'] == card3 and dir2['destination'] == card4) or 
+            (dir2['origin'] == card1 and dir2['destination'] == card2 and
+             dir1['origin'] == card3 and dir1['destination'] == card4))
+
+  def can_cross(self, dir1, dir2):
+    if (self.is_intersect(dir1, dir2, 'N', 'E', 'S', 'N') or 
+        self.is_intersect(dir1, dir2, 'N', 'E', 'E', 'W')):
+      return False
+
+    return True
+
   async def update(self):
     if self.has_traffic and not self.state == Color.GREEN:
       max_green_traffic_lights = 1
 
-      for road_exception in road_exceptions:
-        origin = road_exception['origin']
-        destination = road_exception['destination']
-        max_green_lights = road_exception['max_green_traffic_lights']
+      for traffic_light in active_roads[self.cardinal_direction['destination']]:
+        origin = traffic_light.cardinal_direction['origin']
+        destination = traffic_light.cardinal_direction['destination']
 
-        if (self.cardinal_direction['origin'] == origin and
-           self.cardinal_direction['destination'] == destination and
-           active_roads[self.cardinal_direction['destination']] < max_green_lights):
-          max_green_traffic_lights = max_green_lights
+        if (self.cardinal_direction['origin'] != origin or
+          self.cardinal_direction['destination'] != destination):
+          break
 
-      if active_roads[self.cardinal_direction['destination']] >= max_green_traffic_lights:
+        max_green_traffic_lights = 2
+      
+      if len(active_roads[self.cardinal_direction['destination']]) >= max_green_traffic_lights:
         return
 
+      for cardinal_direction in active_roads:
+        for traffic_light in active_roads[cardinal_direction]:
+          if not self.can_cross(self.cardinal_direction,
+                               traffic_light.cardinal_direction):
+            return
+ 
       emitter.emit('green-traffic-light', self.id)
       self.change_state(Color.GREEN)
-      active_roads[self.cardinal_direction['destination']] += 1
-
+      active_roads[self.cardinal_direction['destination']].append(self)
+      
       await asyncio.sleep(6)
 
       self.change_state(Color.RED)
-      active_roads[self.cardinal_direction['destination']] -= 1
+      active_roads[self.cardinal_direction['destination']].remove(self)
 
   def change_state(self, state):
     self.state = state
@@ -239,6 +245,8 @@ class World:
     self.websocket = websocket
     self.traffic_lights = OrderedDict()
     self.generate_traffic_lights(traffic_light_data)
+
+    self.traffic_lights_to_move_to_end = [];
 
   def generate_traffic_lights(self, traffic_light_data):
     for id, cardinal_direction in traffic_light_data.items():
@@ -261,15 +269,18 @@ class World:
     while True:
       for id, traffic_light in self.traffic_lights.items():
         asyncio.ensure_future(traffic_light.update())
+      
+      for id in self.traffic_lights_to_move_to_end:
+        self.traffic_lights.move_to_end(id)
 
-      await asyncio.sleep(3)
+      await asyncio.sleep(1)
 
   async def send_state(self):
     payload = json.dumps(self.get_state())
     await self.websocket.send(payload)
   
   def green_traffic_light_event(self, id):
-    self.traffic_lights.move_to_end(id)
+    self.traffic_lights_to_move_to_end.append(id);
 
   def get_state(self):
     state = { }
