@@ -1,5 +1,5 @@
 {
-  "name": "Crossroads Simulator",
+  "name": "crossroads-simulator",
   "version": "1.0.0",
   "description": "A crossroad simulator to serve as a school project.",
   "main": "index.js",
