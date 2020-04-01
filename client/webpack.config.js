@@ -8,6 +8,9 @@ module.exports = {
     publicPath: '/js/',
   },
   mode: 'development',
+  externals: {
+    snap: 'Snap'
+  },
   devServer: {
     stats: "errors-only",
     host: process.env.HOST, // Defaults to `localhost`
