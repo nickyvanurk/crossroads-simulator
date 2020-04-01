@@ -1,5 +1,5 @@
 import TrafficLight from './traffic_light';
-import { TrafficStates } from './utils';
+import Snap from 'snap';
 
 class World {
   constructor() {
@@ -14,7 +14,7 @@ class World {
     // window.addEventListener('mousemove', this.onmousemove);
 
     const background = new Image();
-    background.src = './img/crossroads.png';
+    background.src = './img/crossroads.svg';
     background.onload = () => {
       this.ctx.drawImage(background, 0, 0);
 
