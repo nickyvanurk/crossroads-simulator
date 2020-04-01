@@ -13,14 +13,8 @@ class World {
 
     // window.addEventListener('mousemove', this.onmousemove);
 
-    const background = new Image();
-    background.src = './img/crossroads.svg';
-    background.onload = () => {
-      this.ctx.drawImage(background, 0, 0);
-
-      this.onload();
-      this.isReady = true;
-    }
+    this.onload();
+    this.isReady = true;
   }
   
   onload() {
@@ -72,6 +66,31 @@ class World {
     this.traffic_lights['GV2'] = new TrafficLight({ x: 456, y: 565 });
     this.traffic_lights['GV3'] = new TrafficLight({ x: 476, y: 565 });
     this.traffic_lights['GV4'] = new TrafficLight({ x: 371, y: 565 });
+
+    const road = document.getElementById('road-w-n').getElementsByTagName('path')[0].getAttribute('d');
+    const roadLength = Snap.path.getTotalLength(road);
+
+    this.carPosition = { x: 0, y: 0 };
+    this.carAngle = 0;
+    this.numPaused = 0;
+
+    this.carAnim = Snap.animate(0, roadLength, async (step) => {
+      const moveToPoint = Snap.path.getPointAtLength(road, step);
+      this.carPosition.x = moveToPoint.x;
+      this.carPosition.y = moveToPoint.y;
+      this.carAngle = moveToPoint.alpha;
+
+      if (step > 350 && step < 360 && this.numPaused == 0) {
+        this.numPaused += 1;
+
+        this.carAnim.pause();
+      }
+    }, 5000, () => {
+      console.log('finished');
+    });
+
+
+    console.log(roadLength);
   }
 
   onmousemove(event) {
@@ -91,18 +110,38 @@ class World {
   draw() {
     if (!this.isReady) return;
 
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
     for (const index in this.traffic_lights) {
       this.traffic_lights[index].draw(this.ctx);
     }
+
+    this.ctx.translate(this.carPosition.x, this.carPosition.y);
+    this.ctx.rotate(this.carAngle * Math.PI / 180);
+    
+    this.ctx.fillStyle = "#0B9ADA";
+    this.ctx.fillRect(-10, -5, 20, 10);
+    this.ctx.stroke();
+
+    this.ctx.rotate(-(this.carAngle * Math.PI / 180));
+    this.ctx.translate(-(this.carPosition.x), -(this.carPosition.y));
+
   }
 
   processState(state) {
     if (!this.isReady) return;
 
+    
     for (const [key, traffic_light_state] of Object.entries(state)) {
       this.traffic_lights[key].changeState(parseInt(traffic_light_state));
-    }
 
+      if (key === 'D1') {
+        if (this.traffic_lights[key].state == 2) {
+          this.carAnim.resume();
+        } 
+      }
+    }
+    
     this.draw();
   }
 }

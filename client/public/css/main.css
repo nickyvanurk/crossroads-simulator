@@ -1,18 +1,22 @@
 * {
   margin: 0;
   padding: 0;
-  background: #d6d6d6;
 }
 
 body {
   overflow: hidden;
+  background: #d6d6d6;
 }
 
 svg {
-  margin: -70px 0 0 -62px;
+  width: 937px;
+  height: 829px;
 }
 
 #canvas {
   width: 937px;
   height: 829px;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
