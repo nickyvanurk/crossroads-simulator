@@ -1,35 +1,35 @@
 import world from './world';
 
-const socket = new WebSocket('ws://localhost:8765');
+const socket = new WebSocket('ws://localhost:8080');
+// const socket = new WebSocket('ws://0.tcp.ngrok.io:15380');
 
 socket.addEventListener('open', (event) => {
   socket.send(JSON.stringify({
-    'A1': 0,
-    'A2': 0,
-    'A3': 0,
-    'A4': 0,
+    'A1': 1,
+    'A2': 1,
+    'A3': 1,
+    'A4': 1,
   
     'AB1': 0,
     'AB2': 0,
   
     'B1': 1,
-    'B2': 0,
-    'B3': 0,
-    'B4': 0,
-    'B5': 0,
+    'B2': 1,
+    'B3': 1,
+    'B4': 1,
+    'B5': 1,
   
     'BB1': 0,
   
-    'C1': 0,
+    'C1': 1,
     'C2': 1,
-    'C3': 0,
+    'C3': 1,
   
-    'D1': 0,
-    'D2': 0,
-    'D3': 0,
+    'D1': 1,
+    'D2': 1,
+    'D3': 1,
   
     'E1': 0,
-    'E2': 0,
   
     'EV1': 0,
     'EV2': 0,

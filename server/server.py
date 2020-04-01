@@ -87,10 +87,6 @@ traffic_light_data = {
     'origin': 'N',
     'destination': 'N'
   },
-  'E2': {
-    'origin': 'N',
-    'destination': 'N'
-  },
   'EV1': {
     'origin': 'N',
     'destination': 'N'
@@ -193,19 +189,14 @@ class TrafficLight:
         self.is_intersect(dir1, dir2, 'N', 'E', 'E', 'W') or
         self.is_intersect(dir1, dir2, 'N', 'E', 'W', 'N') or
         self.is_intersect(dir1, dir2, 'N', 'E', 'E', 'S') or
-
-
         self.is_intersect(dir1, dir2, 'S', 'W', 'N', 'S') or
         self.is_intersect(dir1, dir2, 'S', 'W', 'N', 'E') or
         self.is_intersect(dir1, dir2, 'S', 'W', 'W', 'E') or
-
         self.is_intersect(dir1, dir2, 'E', 'S', 'S', 'N') or
         self.is_intersect(dir1, dir2, 'E', 'S', 'S', 'W') or
-
         self.is_intersect(dir1, dir2, 'W', 'E', 'S', 'N') or
         self.is_intersect(dir1, dir2, 'W', 'E', 'N', 'S') or
         self.is_intersect(dir1, dir2, 'W', 'E', 'E', 'S') or
-
         self.is_intersect(dir1, dir2, 'W', 'N', 'E', 'W') or
         self.is_intersect(dir1, dir2, 'W', 'N', 'S', 'W') or
         self.is_intersect(dir1, dir2, 'W', 'N', 'N', 'S') or
@@ -241,7 +232,7 @@ class TrafficLight:
       self.change_state(Color.GREEN)
       active_roads[self.cardinal_direction['destination']].append(self)
       
-      await asyncio.sleep(1.5)
+      await asyncio.sleep(6.5)
 
       self.change_state(Color.RED)
       active_roads[self.cardinal_direction['destination']].remove(self)
@@ -282,7 +273,7 @@ class World:
     
   def process_simulation_state(self, simulation_state):
     for id, traffic_count in simulation_state.items():
-      self.traffic_lights[id].set_has_traffic(True if traffic_count > 0 else False)
+      self.traffic_lights[id.upper()].set_has_traffic(True if int(traffic_count) > 0 else False)
 
   async def update(self):
     while True:
@@ -296,6 +287,9 @@ class World:
 
   async def send_state(self):
     payload = json.dumps(self.get_state())
+    
+    print(payload)
+
     await self.websocket.send(payload)
   
   def green_traffic_light_event(self, id):
@@ -315,15 +309,19 @@ async def index(websocket, path):
   emitter.on('state-change', world.send_state)
   emitter.on('green-traffic-light', world.green_traffic_light_event)
 
+  print('Connected')
+
   async for message in websocket:
     simulation_state = json.loads(message)
+
+    print(simulation_state)
 
     world.process_simulation_state(simulation_state)
 
     asyncio.ensure_future(world.update())
 
 
-start_server = websockets.serve(index, 'localhost', 8765)
+start_server = websockets.serve(index, '127.0.0.1', 8080)
 
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()

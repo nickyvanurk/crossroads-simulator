@@ -50,8 +50,7 @@ class World {
     this.traffic_lights['D2'] = new TrafficLight({ x: 342, y: 419 });
     this.traffic_lights['D3'] = new TrafficLight({ x: 342, y: 442 });
 
-    this.traffic_lights['E1'] = new TrafficLight({ x: 364, y: 242 });
-    this.traffic_lights['E2'] = new TrafficLight({ x: 555, y: 211 });
+    this.traffic_lights['E1'] = new TrafficLight({ x: 555, y: 211 });
 
     this.traffic_lights['EV1'] = new TrafficLight({ x: 346, y: 211 });
     this.traffic_lights['EV2'] = new TrafficLight({ x: 476, y: 211 });
@@ -103,6 +102,8 @@ class World {
     for (const [key, traffic_light_state] of Object.entries(state)) {
       this.traffic_lights[key].changeState(parseInt(traffic_light_state));
     }
+
+    this.draw();
   }
 }
 
