@@ -1,0 +1,48 @@
+class Car {
+  constructor(position, size = { w: 20, h: 10 }, roadId) {
+    this.size = size;
+    this.position = position;
+    this.angle = 0;
+
+    const road = document.getElementById(roadId).getElementsByTagName('path')[0].getAttribute('d');;
+    const roadLength = Snap.path.getTotalLength(road);
+
+    this.numPaused = 0;
+
+    this.anim = Snap.animate(0, roadLength, async (step) => {
+      const moveToPoint = Snap.path.getPointAtLength(road, step);
+
+      this.position.x = moveToPoint.x;
+      this.position.y = moveToPoint.y;
+      this.angle = moveToPoint.alpha;
+      
+      if (step > 350 && step < 360 && this.numPaused == 0) {
+        this.numPaused += 1;
+
+        this.anim.pause();
+      }
+    }, 5000, () => {
+      console.log('finished');
+    });
+  }
+
+  pause() {
+    this.anim.pause();
+  }
+
+  resume() {
+    this.anim.resume();
+  }
+
+  draw(ctx) {
+    ctx.translate(this.position.x, this.position.y);
+    ctx.rotate(this.angle * Math.PI / 180);
+    ctx.fillStyle = "#0B9ADA";
+    ctx.fillRect(-this.size.w / 2, -this.size.h / 2, this.size.w, this.size.h);
+    ctx.stroke();
+    ctx.rotate(-(this.angle * Math.PI / 180));
+    ctx.translate(-(this.position.x), -(this.position.y));
+  }
+}
+
+export default Car;
