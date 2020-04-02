@@ -24,7 +24,9 @@ class World {
     this.generateTrafficLights(trafficLightsData);
     this.generateRoads(roadsData);
 
-    this.roads[0].spawnCar();
+    for (const road of this.roads) {
+      road.spawnCar();
+    }
 
     this.isReady = true;
   }

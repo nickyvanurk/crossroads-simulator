@@ -5,10 +5,10 @@ const socket = new WebSocket('ws://localhost:8080');
 
 socket.addEventListener('open', (event) => {
   socket.send(JSON.stringify({
-    'A1': 0,
-    'A2': 0,
-    'A3': 0,
-    'A4': 0,
+    'A1': 1,
+    'A2': 1,
+    'A3': 1,
+    'A4': 1,
 
     'AB1': 0,
     'AB2': 0,
@@ -26,8 +26,8 @@ socket.addEventListener('open', (event) => {
     'C3': 0,
 
     'D1': 1,
-    'D2': 0,
-    'D3': 0,
+    'D2': 1,
+    'D3': 1,
 
     'E1': 0,
 

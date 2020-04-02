@@ -1,3 +1,11 @@
 {
-  "road-w-n": ["D1"]
+
+  "road-a1": ["A1"],
+  "road-a2": ["A2"],
+  "road-a3": ["A3"],
+  "road-a4": ["A4"],
+
+  "road-d1": ["D1"],
+  "road-d2": ["D2"],
+  "road-d3": ["D3"]
 }
