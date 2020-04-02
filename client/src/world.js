@@ -1,4 +1,4 @@
-import traffic_lights_data from './data/traffic_lights.json';
+import trafficLightsData from './data/traffic_lights.json';
 import TrafficLight from './traffic_light';
 import Car from './car';
 
@@ -19,7 +19,7 @@ class World {
   }
 
   init() {
-    this.generateTrafficLights(traffic_lights_data);
+    this.generateTrafficLights(trafficLightsData);
 
     this.car = new Car({ x: 20, y: 20 }, { w: 20, h: 10}, 'road-w-n');
 
@@ -51,8 +51,8 @@ class World {
 
     console.log(pos);
   }
-  generateTrafficLights(json) {
-    for (const [key, coordinates] of Object.entries(traffic_lights_data)) {
+  generateTrafficLights(data) {
+    for (const [key, coordinates] of Object.entries(data)) {
       this.traffic_lights[key] = new TrafficLight(coordinates);
     }
   }
