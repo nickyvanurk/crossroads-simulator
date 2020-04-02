@@ -4,7 +4,7 @@ export default class TrafficLight {
   constructor(position) {
     this.position = position;
     this.state = TrafficStates.Red;
-    this.stopRadius = 80;
+    this.stopRadius = 85;
   }
 
   changeState(state) {

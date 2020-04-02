@@ -1,27 +1,7 @@
 import trafficLightsData from './data/traffic_lights.json';
 import TrafficLight from './traffic_light';
 import roadsData from './data/roads';
-import Car from './car';
-
-class Road {
-  constructor(id, traffic_light_ids) {
-    this.id = id;
-    this.traffic_light_ids = traffic_light_ids;
-    this.cars = [];
-  }
-
-  spawnCar() {
-    this.cars.push(new Car({ x: 20, y: 20 }, { w: 20, h: 10}, this.id));
-  }
-
-  getCars() {
-    return this.cars;
-  }
-
-  getTrafficLightIds() {
-    return this.traffic_light_ids;
-  }
-}
+import Road from './road';
 
 class World {
   constructor() {
@@ -53,7 +33,6 @@ class World {
     if (!this.isReady) return;
 
     for (const road of this.roads) {
-
       const traffic_lights = [];
 
       Object.keys(this.traffic_lights)
