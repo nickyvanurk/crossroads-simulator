@@ -3,6 +3,8 @@ class Car {
     this.size = size;
     this.position = position;
     this.angle = 0;
+    this.moving = true;
+    this.trafficLightChecks = 0;
 
     const road = document.getElementById(roadId).getElementsByTagName('path')[0].getAttribute('d');;
     const roadLength = Snap.path.getTotalLength(road);
@@ -15,22 +17,24 @@ class Car {
       this.position.x = moveToPoint.x;
       this.position.y = moveToPoint.y;
       this.angle = moveToPoint.alpha;
-      
-      if (step > 350 && step < 360 && this.numPaused == 0) {
-        this.numPaused += 1;
 
-        this.anim.pause();
-      }
+      // if (step > 350 && step < 360 && this.numPaused == 0) {
+      //   this.numPaused += 1;
+
+      //   this.anim.pause();
+      // }
     }, 5000, () => {
       console.log('finished');
     });
   }
 
-  pause() {
+  stop() {
+    this.moving = false;
     this.anim.pause();
   }
 
-  resume() {
+  start() {
+    this.moving = true;
     this.anim.resume();
   }
 
@@ -42,6 +46,14 @@ class Car {
     ctx.stroke();
     ctx.rotate(-(this.angle * Math.PI / 180));
     ctx.translate(-(this.position.x), -(this.position.y));
+  }
+
+  getPosition() {
+    return this.position;
+  }
+
+  isMoving() {
+    return this.moving;
   }
 }
 

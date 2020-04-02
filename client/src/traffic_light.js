@@ -4,12 +4,13 @@ export default class TrafficLight {
   constructor(position) {
     this.position = position;
     this.state = TrafficStates.Red;
+    this.stopRadius = 80;
   }
 
   changeState(state) {
     this.state = state;
   }
-  
+
   draw(ctx) {
     ctx.beginPath();
     ctx.arc(this.position.x, this.position.y, 8, 0, 2 * Math.PI, false);
@@ -30,5 +31,21 @@ export default class TrafficLight {
     ctx.lineWidth = 1;
     ctx.strokeStyle = '#003300';
     ctx.stroke();
+  }
+
+  getPosition() {
+    return this.position;
+  }
+
+  getStopRadius() {
+    return this.stopRadius;
+  }
+
+  isRed() {
+    return this.state === TrafficStates.Red;
+  }
+
+  isGreen() {
+    return this.state === TrafficStates.Green;
   }
 }
