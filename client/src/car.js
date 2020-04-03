@@ -3,7 +3,9 @@ class Car {
     this.size = size;
     this.position = position;
     this.angle = 0;
-    this.color = '#'+Math.floor(Math.random()*16777215).toString(16);
+    this.color = "hsl(" + 360 * Math.random() + ',' +
+                          (95 + 70 * Math.random()) + '%,' +
+                          (60 + 10 * Math.random()) + '%)';
     this.moving = true;
     this.trafficLightChecks = 0;
     this.isFinishedAnim = false;
