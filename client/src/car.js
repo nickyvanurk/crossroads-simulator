@@ -3,6 +3,7 @@ class Car {
     this.size = size;
     this.position = position;
     this.angle = 0;
+    this.color = '#'+Math.floor(Math.random()*16777215).toString(16);
     this.moving = true;
     this.trafficLightChecks = 0;
     this.isFinishedAnim = false;
@@ -46,7 +47,7 @@ class Car {
   draw(ctx) {
     ctx.translate(this.position.x, this.position.y);
     ctx.rotate(this.angle * Math.PI / 180);
-    ctx.fillStyle = "#0B9ADA";
+    ctx.fillStyle = this.color;
     ctx.fillRect(-this.size.w / 2, -this.size.h / 2, this.size.w, this.size.h);
     ctx.stroke();
     ctx.rotate(-(this.angle * Math.PI / 180));
