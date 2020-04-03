@@ -25,9 +25,7 @@ class World {
     this.generateTrafficLights(trafficLightsData);
     this.generateRoads(roadsData);
 
-    for (const road of this.roads) {
-      road.spawnCar();
-    }
+    setInterval(this.spawnTraffic.bind(this), 1000);
 
     this.isReady = true;
   }
@@ -150,6 +148,12 @@ class World {
     }
 
     return data;
+  }
+
+  spawnTraffic() {
+    for (const road of this.roads) {
+      road.spawnCar();
+    }
   }
 }
 
