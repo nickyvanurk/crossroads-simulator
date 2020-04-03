@@ -35,6 +35,8 @@ class World {
     if (!this.isReady) return;
 
     for (const road of this.roads) {
+      road.update();
+
       const traffic_lights = [];
 
       Object.keys(this.traffic_lights)

@@ -5,6 +5,7 @@ class Car {
     this.angle = 0;
     this.moving = true;
     this.trafficLightChecks = 0;
+    this.isFinishedAnim = false;
 
     const road = document.getElementById(roadId).getElementsByTagName('path')[0].getAttribute('d');;
     const roadLength = Snap.path.getTotalLength(road);
@@ -24,7 +25,7 @@ class Car {
       //   this.anim.pause();
       // }
     }, 5000, () => {
-      console.log('finished');
+      this.isFinishedAnim = true;
     });
   }
 
@@ -54,6 +55,10 @@ class Car {
 
   isMoving() {
     return this.moving;
+  }
+
+  isFlaggedForDespawn() {
+    return this.isFinishedAnim;
   }
 }
 
