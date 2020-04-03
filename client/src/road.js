@@ -18,11 +18,15 @@ class Road {
       const car1 = this.cars[i - 1];
       const car2 = this.cars[i];
 
-      if (!car2) break;
+      if (!car2) continue;
 
-      if (car2.isCollidingOther(car1) && !car2.isUnstoppable()) {
+      if (car2.isCollidingOther(car1) && !car2.isColliding()) {
+        car2.setCollision(true);
         car2.stop();
-      } else {
+      }
+
+      if (!car2.isCollidingOther(car1) && car2.isColliding()) {
+        car2.setCollision(false);
         car2.start();
       }
     }

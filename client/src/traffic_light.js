@@ -53,17 +53,14 @@ export default class TrafficLight {
 
   setNumQueuedUnits(num) {
     this.queuedUnits = num;
-    console.log(this.queuedUnits);
   }
 
   incrementQueue() {
     this.queuedUnits++;
-    console.log(this.queuedUnits);
   }
 
   decrementQueue() {
     this.queuedUnits--;
-    console.log(this.queuedUnits);
   }
 
   getQueuedUnits() {

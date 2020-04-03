@@ -19,7 +19,6 @@ function gameLoop() {
   world.draw();
 
   if (world.isStateChanged()) {
-    console.log('sending state');
     const payload = world.getState();
     socket.send(JSON.stringify(payload));
   }

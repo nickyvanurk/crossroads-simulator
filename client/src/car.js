@@ -13,6 +13,7 @@ class Car {
     this.unstoppable = false;
     this.collisionRadius = this.size.w * 1.5;
     this.startDelay = 100;
+    this.collision = false;
 
     const road = document.getElementById(roadId).getElementsByTagName('path')[0].getAttribute('d');;
     const roadLength = Snap.path.getTotalLength(road);
@@ -31,19 +32,15 @@ class Car {
   }
 
   stop() {
-    if (this.isMoving) {
-      this.moving = false;
-      this.anim.pause();
-    }
+    this.moving = false;
+    this.anim.pause();
   }
 
   start() {
-    if (!this.moving) {
-      setTimeout(() => {
-        this.moving = true;
-        this.anim.resume();
-      }, this.startDelay);
-    }
+    setTimeout(() => {
+      this.moving = true;
+      this.anim.resume();
+    }, this.startDelay);
   }
 
   draw(ctx) {
@@ -92,6 +89,14 @@ class Car {
                                Math.pow(Math.abs(pos1.y - pos2.y), 2));
 
     return distance <= this.collisionRadius;
+  }
+
+  setCollision(flag) {
+    this.collision = flag;
+  }
+
+  isColliding() {
+    return this.collision;
   }
 }
 

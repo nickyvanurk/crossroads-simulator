@@ -41,8 +41,8 @@ class World {
       const traffic_lights = [];
 
       Object.keys(this.traffic_lights)
-        .filter(key => road.getTrafficLightIds().includes(key))
-        .forEach(key => traffic_lights.push(this.traffic_lights[key]));
+      .filter(key => road.getTrafficLightIds().includes(key))
+      .forEach(key => traffic_lights.push(this.traffic_lights[key]));
 
       for (const car of road.getCars()) {
         for (const traffic_light of traffic_lights) {
