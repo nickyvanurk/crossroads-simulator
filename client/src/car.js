@@ -11,6 +11,8 @@ class Car {
     this.isFinishedAnim = false;
     this.inQueue = false;
     this.unstoppable = false;
+    this.collisionRadius = this.size.w * 1.5;
+    this.startDelay = 100;
 
     const road = document.getElementById(roadId).getElementsByTagName('path')[0].getAttribute('d');;
     const roadLength = Snap.path.getTotalLength(road);
@@ -23,27 +25,25 @@ class Car {
       this.position.x = moveToPoint.x;
       this.position.y = moveToPoint.y;
       this.angle = moveToPoint.alpha;
-
-      // if (step > 350 && step < 360 && this.numPaused == 0) {
-      //   this.numPaused += 1;
-
-      //   this.anim.pause();
-      // }
     }, 5000, () => {
       this.isFinishedAnim = true;
     });
   }
 
   stop() {
-    this.moving = false;
-    this.inQueue = true;
-    this.anim.pause();
+    if (this.isMoving) {
+      this.moving = false;
+      this.anim.pause();
+    }
   }
 
   start() {
-    this.moving = true;
-    this.inQueue = false;
-    this.anim.resume();
+    if (!this.moving) {
+      setTimeout(() => {
+        this.moving = true;
+        this.anim.resume();
+      }, this.startDelay);
+    }
   }
 
   draw(ctx) {
@@ -61,15 +61,15 @@ class Car {
   }
 
   isMoving() {
-    return this.moving;
+    return this.moving === true;
   }
 
   isFlaggedForDespawn() {
-    return this.isFinishedAnim;
+    return this.isFinishedAnim === true;
   }
 
   isInQueue() {
-    return this.inQueue;
+    return this.inQueue === true;
   }
 
   setInQueue(flag) {
@@ -77,11 +77,21 @@ class Car {
   }
 
   isUnstoppable() {
-    return this.unstoppable;
+    return this.unstoppable === true;
   }
 
   setUnstoppable(flag) {
     this.unstoppable = flag;
+  }
+
+  isCollidingOther(car) {
+    const pos1 = car.getPosition();
+    const pos2 = this.position;
+
+    const distance = Math.sqrt(Math.pow(Math.abs(pos1.x - pos2.x), 2) +
+                               Math.pow(Math.abs(pos1.y - pos2.y), 2));
+
+    return distance <= this.collisionRadius;
   }
 }
 

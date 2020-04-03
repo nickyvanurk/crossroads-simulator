@@ -13,10 +13,23 @@ class Road {
     if (this.firstCar().isFlaggedForDespawn()) {
       this.despawnCar();
     }
+
+    for (let i = 1; i < this.cars.length; i++) {
+      const car1 = this.cars[i - 1];
+      const car2 = this.cars[i];
+
+      if (!car2) break;
+
+      if (car2.isCollidingOther(car1) && !car2.isUnstoppable()) {
+        car2.stop();
+      } else {
+        car2.start();
+      }
+    }
   }
 
   spawnCar() {
-    this.cars.push(new Car({ x: 20, y: 20 }, { w: 20, h: 10}, this.id, this.despawnCar));
+    this.cars.push(new Car({ x: 20, y: 20 }, { w: 20, h: 10}, this.id));
   }
 
   despawnCar() {
@@ -45,6 +58,10 @@ class Road {
 
   getAllStoppedUnits() {
     return this.cars.filter((car) => !car.moving);
+  }
+
+  getLastCar() {
+    return this.cars[this.cars.length - 1];
   }
 }
 

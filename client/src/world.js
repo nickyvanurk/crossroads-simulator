@@ -152,8 +152,24 @@ class World {
 
   spawnTraffic() {
     for (const road of this.roads) {
-      road.spawnCar();
+      if (road.hasTraffic()) {
+        const lastCar = road.getLastCar();
+
+        if (lastCar) {
+          if (this.isInBounds(lastCar.getPosition())) {
+            road.spawnCar();
+          }
+        }
+      } else {
+        road.spawnCar();
+      }
     }
+  }
+
+  isInBounds(pos) {
+    return pos.x >= 0 && pos.y >= 0 &&
+           pos.x < this.canvas.width &&
+           pos.y < this.canvas.height;
   }
 }
 

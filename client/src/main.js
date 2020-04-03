@@ -9,7 +9,7 @@ socket.addEventListener('open', (event) => {
 
 socket.addEventListener('message', (event) => {
   world.processState(JSON.parse(event.data));
-  console.log('Message from server ', event.data);
+  // console.log('Message from server ', event.data);
 });
 
 window.requestAnimationFrame(gameLoop);
