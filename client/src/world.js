@@ -14,6 +14,7 @@ class World {
     this.traffic_lights = {};
     this.roads = [];
     this.isReady = false;
+    this.stateChanged = false;
 
     this.init();
 
@@ -34,6 +35,8 @@ class World {
   update() {
     if (!this.isReady) return;
 
+    this.stateChanged = false;
+
     for (const road of this.roads) {
       road.update();
 
@@ -45,13 +48,30 @@ class World {
 
       for (const car of road.getCars()) {
         for (const traffic_light of traffic_lights) {
-          if (this.isWithinRadius(car, traffic_light)) {
+          if (traffic_light.isUnitWithinQueueRadius(car) && !car.isInQueue() && !car.isUnstoppable()) {
+            traffic_light.incrementQueue();
+            car.setInQueue(true);
+            this.stateChanged = true;
+          }
+
+          if (traffic_light.isUnitWithinStopRadius(car) && car.isInQueue()) {
             if (car.isMoving() && traffic_light.isRed()) {
               car.stop();
             }
 
+            if (car.isMoving() && traffic_light.isGreen()) {
+              car.setInQueue(false);
+              car.setUnstoppable(true);
+              traffic_light.decrementQueue();
+              this.stateChanged = true;
+            }
+
             if (!car.isMoving() && traffic_light.isGreen()) {
               car.start();
+              car.setInQueue(false);
+              car.setUnstoppable(true);
+              traffic_light.decrementQueue();
+              this.stateChanged = true;
             }
           }
         }
@@ -116,6 +136,20 @@ class World {
                                Math.pow(Math.abs(pos1.y - pos2.y), 2));
 
     return distance <= traffic_light.getStopRadius();
+  }
+
+  isStateChanged() {
+    return this.stateChanged;
+  }
+
+  getState() {
+    let data = {};
+
+    for (const [traffic_light_id, traffic_light] of Object.entries(this.traffic_lights)) {
+      data[traffic_light_id] = traffic_light.getQueuedUnits();
+    }
+
+    return data;
   }
 }
 

@@ -42,6 +42,10 @@ class Road {
   getTrafficLightIds() {
     return this.traffic_light_ids;
   }
+
+  getAllStoppedUnits() {
+    return this.cars.filter((car) => !car.moving);
+  }
 }
 
 export default Road;

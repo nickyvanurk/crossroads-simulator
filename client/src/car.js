@@ -6,6 +6,8 @@ class Car {
     this.moving = true;
     this.trafficLightChecks = 0;
     this.isFinishedAnim = false;
+    this.inQueue = false;
+    this.unstoppable = false;
 
     const road = document.getElementById(roadId).getElementsByTagName('path')[0].getAttribute('d');;
     const roadLength = Snap.path.getTotalLength(road);
@@ -31,11 +33,13 @@ class Car {
 
   stop() {
     this.moving = false;
+    this.inQueue = true;
     this.anim.pause();
   }
 
   start() {
     this.moving = true;
+    this.inQueue = false;
     this.anim.resume();
   }
 
@@ -59,6 +63,22 @@ class Car {
 
   isFlaggedForDespawn() {
     return this.isFinishedAnim;
+  }
+
+  isInQueue() {
+    return this.inQueue;
+  }
+
+  setInQueue(flag) {
+    this.inQueue = flag;
+  }
+
+  isUnstoppable() {
+    return this.unstoppable;
+  }
+
+  setUnstoppable(flag) {
+    this.unstoppable = flag;
   }
 }
 

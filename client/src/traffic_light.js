@@ -5,6 +5,8 @@ export default class TrafficLight {
     this.position = position;
     this.state = TrafficStates.Red;
     this.stopRadius = 85;
+    this.queueRadius = 250;
+    this.queuedUnits = 0;
   }
 
   changeState(state) {
@@ -47,5 +49,44 @@ export default class TrafficLight {
 
   isGreen() {
     return this.state === TrafficStates.Green;
+  }
+
+  setNumQueuedUnits(num) {
+    this.queuedUnits = num;
+    console.log(this.queuedUnits);
+  }
+
+  incrementQueue() {
+    this.queuedUnits++;
+    console.log(this.queuedUnits);
+  }
+
+  decrementQueue() {
+    this.queuedUnits--;
+    console.log(this.queuedUnits);
+  }
+
+  getQueuedUnits() {
+    return this.queuedUnits;
+  }
+
+  isUnitWithinStopRadius(unit) {
+    const pos1 = unit.getPosition();
+    const pos2 = this.position;
+
+    const distance = Math.sqrt(Math.pow(Math.abs(pos1.x - pos2.x), 2) +
+                               Math.pow(Math.abs(pos1.y - pos2.y), 2));
+
+    return distance <= this.stopRadius;
+  }
+
+  isUnitWithinQueueRadius(unit) {
+    const pos1 = unit.getPosition();
+    const pos2 = this.position;
+
+    const distance = Math.sqrt(Math.pow(Math.abs(pos1.x - pos2.x), 2) +
+                               Math.pow(Math.abs(pos1.y - pos2.y), 2));
+
+    return distance <= this.queueRadius;
   }
 }
