@@ -269,7 +269,7 @@ class World:
     self.traffic_lights_to_move_to_end = [];
 
     self.start_time = time.time()
-    self.clearance_time = 2
+    self.clearance_time = 3
     self.allow_green = True
 
   def generate_traffic_lights(self, traffic_light_data):
@@ -296,14 +296,12 @@ class World:
       for id, traffic_light in self.traffic_lights.items():
         if elapsed_time > self.clearance_time and self.allow_green:
           asyncio.create_task(traffic_light.update())
-          # await traffic_light.update()
 
       for id in self.traffic_lights_to_move_to_end:
         self.traffic_lights.move_to_end(id)
+        self.traffic_lights_to_move_to_end.remove(id)
 
       await asyncio.sleep(0.016)
-
-
 
   async def send_state(self):
     payload = json.dumps(self.get_state())
