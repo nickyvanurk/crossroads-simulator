@@ -3,6 +3,7 @@
 import asyncio
 import websockets
 import json
+import time
 from enum import Enum
 from eventemitter import EventEmitter
 from collections import OrderedDict
@@ -237,8 +238,9 @@ class TrafficLight:
       self.change_state(Color.GREEN)
       active_roads[self.cardinal_direction['destination']].append(self)
 
-      await asyncio.sleep(6.5)
+      await asyncio.sleep(6)
 
+      emitter.emit('red-traffic-light', self.id)
       self.change_state(Color.RED)
       active_roads[self.cardinal_direction['destination']].remove(self)
 
@@ -252,6 +254,9 @@ class TrafficLight:
   def set_has_traffic(self, has_traffic):
     self.has_traffic = has_traffic
 
+  def is_red(self):
+    return self.state == Color.RED
+
 
 class World:
   """A world containg all traffic lights logic"""
@@ -262,6 +267,10 @@ class World:
     self.generate_traffic_lights(traffic_light_data)
 
     self.traffic_lights_to_move_to_end = [];
+
+    self.start_time = time.time()
+    self.clearance_time = 2
+    self.allow_green = True
 
   def generate_traffic_lights(self, traffic_light_data):
     for id, cardinal_direction in traffic_light_data.items():
@@ -282,23 +291,44 @@ class World:
 
   async def update(self):
     while True:
+      elapsed_time = time.time() - self.start_time
+
       for id, traffic_light in self.traffic_lights.items():
-        asyncio.ensure_future(traffic_light.update())
+        if elapsed_time > self.clearance_time and self.allow_green:
+          asyncio.create_task(traffic_light.update())
+          # await traffic_light.update()
 
       for id in self.traffic_lights_to_move_to_end:
         self.traffic_lights.move_to_end(id)
 
-      await asyncio.sleep(1)
+      await asyncio.sleep(0.016)
+
+
 
   async def send_state(self):
     payload = json.dumps(self.get_state())
 
-    print(payload)
+    # print(payload)
 
     await self.websocket.send(payload)
 
+  def red_traffic_light_event(self, id):
+    self.start_time = time.time()
+
+    if self.is_all_traffic_lights_red():
+      self.allow_green = True
+
   def green_traffic_light_event(self, id):
     self.traffic_lights_to_move_to_end.append(id);
+
+    self.allow_green = False
+
+  def is_all_traffic_lights_red(self):
+    for id, traffic_light in self.traffic_lights.items():
+      if not traffic_light.is_red():
+        return False
+
+    return True
 
   def get_state(self):
     state = { }
@@ -312,6 +342,7 @@ class World:
 async def index(websocket, path):
   world = World(websocket, traffic_light_data)
   emitter.on('state-change', world.send_state)
+  emitter.on('red-traffic-light', world.red_traffic_light_event)
   emitter.on('green-traffic-light', world.green_traffic_light_event)
 
   print('Connected')
@@ -319,7 +350,7 @@ async def index(websocket, path):
   async for message in websocket:
     simulation_state = json.loads(message)
 
-    print(simulation_state)
+    # print(simulation_state)
 
     world.process_simulation_state(simulation_state)
 
