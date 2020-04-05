@@ -4,4 +4,17 @@ const TrafficStates = {
   Green: 2
 }
 
-export { TrafficStates };
+const getObjectValuesByKeys = (obj, keys) => {
+  let values = [];
+
+  Object.keys(obj)
+        .filter(key => keys.includes(key))
+        .forEach(key => values.push(obj[key]));
+
+  return values;
+}
+
+export {
+  TrafficStates,
+  getObjectValuesByKeys
+};
