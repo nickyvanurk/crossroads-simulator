@@ -81,8 +81,10 @@ class World {
   }
 
   generateTrafficLights(data) {
-    for (const [key, coordinates] of Object.entries(data)) {
-      this.trafficLights[key] = new TrafficLight(coordinates);
+    for (const [key, values] of Object.entries(data)) {
+      this.trafficLights[key] = new TrafficLight(values.position,
+                                                 values.queueRadius,
+                                                 values.stopRadius);
     }
   }
 

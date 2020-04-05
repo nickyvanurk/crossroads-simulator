@@ -1,37 +1,177 @@
 {
-  "A1": { "x": 489, "y": 497 },
-  "A2": { "x": 514, "y": 497 },
-  "A3": { "x": 536, "y": 497 },
-  "A4": { "x": 560, "y": 497 },
-  "AB1": { "x": 598, "y": 632 },
-  "AB2": { "x": 598, "y": 652 },
-  "B1": { "x": 459, "y": 283 },
-  "B2": { "x": 439, "y": 283 },
-  "B3": { "x": 419, "y": 283 },
-  "B4": { "x": 390, "y": 283 },
-  "B5": { "x": 195, "y": 316 },
-  "BB1": { "x": 358, "y": 283 },
-  "C1": { "x": 598, "y": 369 },
-  "C2": { "x": 598, "y": 346 },
-  "C3": { "x": 598, "y": 322 },
-  "D1": { "x": 342, "y": 398 },
-  "D2": { "x": 342, "y": 419 },
-  "D3": { "x": 342, "y": 442 },
-  "E1": { "x": 555, "y": 211 },
-  "EV1": { "x": 346, "y": 211 },
-  "EV2": { "x": 476, "y": 211 },
-  "EV3": { "x": 497, "y": 211 },
-  "EV4": { "x": 555, "y": 191 },
-  "FF1": { "x": 337, "y": 463 },
-  "FF2": { "x": 310, "y": 323 },
-  "FV1": { "x": 290, "y": 463 },
-  "FV2": { "x": 290, "y": 384 },
-  "FV3": { "x": 290, "y": 364 },
-  "FV4": { "x": 290, "y": 323 },
-  "GF1": { "x": 588, "y": 535 },
-  "GF2": { "x": 371, "y": 545 },
-  "GV1": { "x": 290, "y": 463 },
-  "GV2": { "x": 456, "y": 565 },
-  "GV3": { "x": 476, "y": 565 },
-  "GV4": { "x": 371, "y": 565 }
+  "A1": {
+    "position": { "x": 489, "y": 497 },
+    "queueRadius": 250,
+    "stopRadius": 103
+  },
+  "A2": {
+    "position": { "x": 514, "y": 497 },
+    "queueRadius": 250,
+    "stopRadius": 103
+  },
+  "A3": {
+    "position": { "x": 536, "y": 497 },
+    "queueRadius": 250,
+    "stopRadius": 103
+  },
+  "A4": {
+    "position": { "x": 560, "y": 497 },
+    "queueRadius": 250,
+    "stopRadius": 178
+  },
+  "AB1": {
+    "position": { "x": 598, "y": 632 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "AB2": {
+    "position": { "x": 598, "y": 652 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "B1": {
+    "position": { "x": 459, "y": 283 },
+    "queueRadius": 250,
+    "stopRadius": 134
+  },
+  "B2": {
+    "position": { "x": 439, "y": 283 },
+    "queueRadius": 250,
+    "stopRadius": 134
+  },
+  "B3": {
+    "position": { "x": 419, "y": 283 },
+    "queueRadius": 250,
+    "stopRadius": 134
+  },
+  "B4": {
+    "position": { "x": 390, "y": 283 },
+    "queueRadius": 250,
+    "stopRadius": 134
+  },
+  "B5": {
+    "position": { "x": 195, "y": 316 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "BB1": {
+    "position": { "x": 358, "y": 283 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "C1": {
+    "position": { "x": 598, "y": 369 },
+    "queueRadius": 250,
+    "stopRadius": 30
+  },
+  "C2": {
+    "position": { "x": 598, "y": 346 },
+    "queueRadius": 250,
+    "stopRadius": 30
+  },
+  "C3": {
+    "position": { "x": 598, "y": 322 },
+    "queueRadius": 250,
+    "stopRadius": 30
+  },
+  "D1": {
+    "position": { "x": 342, "y": 398 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "D2": {
+    "position": { "x": 342, "y": 419 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "D3": {
+    "position": { "x": 342, "y": 442 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "E1": {
+    "position": { "x": 555, "y": 211 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "EV1": {
+    "position": { "x": 346, "y": 211 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "EV2": {
+    "position": { "x": 476, "y": 211 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "EV3": {
+    "position": { "x": 497, "y": 211 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "EV4": {
+    "position": { "x": 555, "y": 191 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "FF1": {
+    "position": { "x": 337, "y": 463 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "FF2": {
+    "position": { "x": 310, "y": 323 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "FV1": {
+    "position": { "x": 290, "y": 463 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "FV2": {
+    "position": { "x": 290, "y": 384 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "FV3": {
+    "position": { "x": 290, "y": 364 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "FV4": {
+    "position": { "x": 290, "y": 323 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "GF1": {
+    "position": { "x": 588, "y": 535 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "GF2": {
+    "position": { "x": 371, "y": 545 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "GV1": {
+    "position": { "x": 290, "y": 463 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "GV2": {
+    "position": { "x": 456, "y": 565 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "GV3": {
+    "position": { "x": 476, "y": 565 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  },
+  "GV4": {
+    "position": { "x": 371, "y": 565 },
+    "queueRadius": 250,
+    "stopRadius": 85
+  }
 }

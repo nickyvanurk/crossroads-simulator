@@ -1,11 +1,12 @@
 import { TrafficStates } from './utils';
 
 export default class TrafficLight {
-  constructor(position) {
+  constructor(position, queueRadius, stopRadius) {
     this.position = position;
+    this.queueRadius = queueRadius;
+    this.stopRadius = stopRadius;
+
     this.state = TrafficStates.Red;
-    this.stopRadius = 85;
-    this.queueRadius = 250;
     this.queuedUnits = 0;
   }
 
