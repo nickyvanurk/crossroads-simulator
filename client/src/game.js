@@ -1,4 +1,3 @@
-import world from './world';
 import World from './world';
 
 class Game {
