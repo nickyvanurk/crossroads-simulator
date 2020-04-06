@@ -18,7 +18,7 @@ class World {
     this.generateTrafficLights(trafficLightsData);
     this.generateRoads(roadsData);
 
-    setInterval(this.spawnTraffic.bind(this), 1000);
+    setInterval(this.spawnTraffic.bind(this), 5000);
 
     this.ready = true;
   }

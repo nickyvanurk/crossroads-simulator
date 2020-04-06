@@ -34,10 +34,10 @@ class Unit {
   }
 
   start() {
-    setTimeout(() => {
+    // setTimeout(() => {
       this.moving = true;
       this.anim.resume();
-    }, this.startDelay);
+    // }, this.startDelay);
   }
 
   draw(ctx) {

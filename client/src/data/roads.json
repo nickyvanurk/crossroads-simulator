@@ -63,5 +63,31 @@
   "road-ev4": {
     "type": "pedestrian",
     "trafficLightIds": ["EV4", "EV2"]
+  },
+  "road-e1": {
+    "type": "bicycle",
+    "trafficLightIds": ["E1"]
+  },
+  "road-e1b5": {
+    "type": "car",
+    "trafficLightIds": ["E1", "B5"]
+  },
+
+
+  "road-fv1": {
+    "type": "pedestrian",
+    "trafficLightIds": ["FV1", "FV3"]
+  },
+  "road-fv4": {
+    "type": "pedestrian",
+    "trafficLightIds": ["FV4", "FV2"]
+  },
+  "road-gv1": {
+    "type": "pedestrian",
+    "trafficLightIds": ["GV1", "GV3"]
+  },
+  "road-gv4": {
+    "type": "pedestrian",
+    "trafficLightIds": ["GV4", "GV2"]
   }
 }

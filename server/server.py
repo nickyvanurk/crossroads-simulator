@@ -206,7 +206,16 @@ class TrafficLight:
         self.is_intersect(dir1, dir2, 'E', 'W', 'N', 'W') or
         self.is_intersect(dir1, dir2, 'E', 'W', 'S', 'N') or
         self.is_intersect(dir1, dir2, 'E', 'W', 'S', 'W') or
-        self.is_intersect(dir1, dir2, 'E', 'N', 'S', 'N')):
+        self.is_intersect(dir1, dir2, 'E', 'N', 'S', 'N') or
+        self.is_intersect(dir1, dir2, 'N', 'E', 'N', 'N') or
+        self.is_intersect(dir1, dir2, 'N', 'S', 'N', 'N') or
+        self.is_intersect(dir1, dir2, 'N', 'W', 'N', 'N') or
+        self.is_intersect(dir1, dir2, 'W', 'E', 'W', 'W') or
+        self.is_intersect(dir1, dir2, 'W', 'N', 'W', 'W') or
+        self.is_intersect(dir1, dir2, 'W', 'S', 'W', 'W') or
+        self.is_intersect(dir1, dir2, 'S', 'E', 'S', 'S') or
+        self.is_intersect(dir1, dir2, 'S', 'N', 'S', 'S') or
+        self.is_intersect(dir1, dir2, 'S', 'W', 'S', 'S')):
       return False
 
     return True
@@ -223,7 +232,7 @@ class TrafficLight:
           self.cardinal_direction['destination'] != destination):
           break
 
-        max_green_traffic_lights = 5
+        max_green_traffic_lights = 10
 
       if len(active_roads[self.cardinal_direction['destination']]) >= max_green_traffic_lights:
         return
