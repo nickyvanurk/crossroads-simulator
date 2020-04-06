@@ -1,9 +1,11 @@
 import Car from './car';
+import Pedestrian from './pedestrian';
 
 class Road {
-  constructor(id, traffic_light_ids) {
+  constructor(id, type, trafficLightIds) {
     this.id = id;
-    this.traffic_light_ids = traffic_light_ids;
+    this.type = type;
+    this.trafficLightIds = trafficLightIds;
     this.cars = [];
   }
 
@@ -33,7 +35,14 @@ class Road {
   }
 
   spawnCar() {
-    this.cars.push(new Car({ x: 20, y: 20 }, { w: 20, h: 10}, this.id));
+    switch (this.type) {
+      case "car":
+        this.cars.push(new Car(this.id));
+        break;
+      case "pedestrian":
+        this.cars.push(new Pedestrian(this.id));
+        break;
+    }
   }
 
   despawnCar() {
@@ -57,7 +66,7 @@ class Road {
   }
 
   getTrafficLightIds() {
-    return this.traffic_light_ids;
+    return this.trafficLightIds;
   }
 
   getAllStoppedUnits() {

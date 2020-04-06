@@ -223,7 +223,7 @@ class TrafficLight:
           self.cardinal_direction['destination'] != destination):
           break
 
-        max_green_traffic_lights = 2
+        max_green_traffic_lights = 5
 
       if len(active_roads[self.cardinal_direction['destination']]) >= max_green_traffic_lights:
         return

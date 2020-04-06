@@ -90,29 +90,29 @@
     "stopRadius": 85
   },
   "E1": {
-    "position": { "x": 555, "y": 211 },
+    "position": { "x": 555, "y": 225 },
     "queueRadius": 250,
     "stopRadius": 85
   },
   "EV1": {
-    "position": { "x": 346, "y": 211 },
-    "queueRadius": 250,
-    "stopRadius": 85
+    "position": { "x": 350, "y": 191 },
+    "queueRadius": 200,
+    "stopRadius": 22
   },
   "EV2": {
-    "position": { "x": 497, "y": 211 },
+    "position": { "x": 476, "y": 191 },
     "queueRadius": 200,
-    "stopRadius": 35
+    "stopRadius": 20
   },
   "EV3": {
-    "position": { "x": 476, "y": 211 },
-    "queueRadius": 250,
-    "stopRadius": 85
+    "position": { "x": 497, "y": 191 },
+    "queueRadius": 200,
+    "stopRadius": 22
   },
   "EV4": {
     "position": { "x": 555, "y": 191 },
     "queueRadius": 200,
-    "stopRadius": 35
+    "stopRadius": 20
   },
   "FF1": {
     "position": { "x": 337, "y": 463 },

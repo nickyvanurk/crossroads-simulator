@@ -1,22 +1,67 @@
 {
 
-  "road-a1": ["A1"],
-  "road-a2": ["A2"],
-  "road-a3": ["A3"],
-  "road-a4": ["A4"],
-
-  "road-b1": ["B1"],
-  "road-b2": ["B2"],
-  "road-b3": ["B3"],
-  "road-b4": ["B4"],
-
-  "road-c1": ["C1"],
-  "road-c2": ["C2"],
-  "road-c3": ["C3"],
-
-  "road-d1": ["D1"],
-  "road-d2": ["D2"],
-  "road-d3": ["D3"],
-
-  "road-ev4": ["EV4", "EV2"]
+  "road-a1": {
+    "type": "car",
+    "trafficLightIds": ["A1"]
+  },
+  "road-a2": {
+    "type": "car",
+    "trafficLightIds": ["A2"]
+  },
+  "road-a3": {
+    "type": "car",
+    "trafficLightIds": ["A3"]
+  },
+  "road-a4": {
+    "type": "car",
+    "trafficLightIds": ["A4"]
+  },
+  "road-b1": {
+    "type": "car",
+    "trafficLightIds": ["B1"]
+  },
+  "road-b2": {
+    "type": "car",
+    "trafficLightIds": ["B2"]
+  },
+  "road-b3": {
+    "type": "car",
+    "trafficLightIds": ["B3"]
+  },
+  "road-b4": {
+    "type": "car",
+    "trafficLightIds": ["B4"]
+  },
+  "road-c1": {
+    "type": "car",
+    "trafficLightIds": ["C1"]
+  },
+  "road-c2": {
+    "type": "car",
+    "trafficLightIds": ["C2"]
+  },
+  "road-c3": {
+    "type": "car",
+    "trafficLightIds": ["C3"]
+  },
+  "road-d1": {
+    "type": "car",
+    "trafficLightIds": ["D1"]
+  },
+  "road-d2": {
+    "type": "car",
+    "trafficLightIds": ["D2"]
+  },
+  "road-d3": {
+    "type": "car",
+    "trafficLightIds": ["D3"]
+  },
+  "road-ev1": {
+    "type": "pedestrian",
+    "trafficLightIds": ["EV1", "EV3"]
+  },
+  "road-ev4": {
+    "type": "pedestrian",
+    "trafficLightIds": ["EV4", "EV2"]
+  }
 }

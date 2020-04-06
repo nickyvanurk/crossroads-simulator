@@ -86,8 +86,8 @@ class World {
   }
 
   generateRoads(data) {
-    for (const [key, traffic_light_ids] of Object.entries(data)) {
-      this.roads.push(new Road(key, traffic_light_ids));
+    for (const [key, values] of Object.entries(data)) {
+      this.roads.push(new Road(key, values.type, values.trafficLightIds));
     }
   }
 
