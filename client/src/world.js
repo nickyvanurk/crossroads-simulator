@@ -2,7 +2,7 @@ import trafficLightsData from './data/traffic_lights.json';
 import TrafficLight from './traffic_light';
 import roadsData from './data/roads';
 import Road from './road';
-import { getObjectValuesByKeys } from './utils';
+import { filterObjectByKeys } from './utils';
 
 class World {
   constructor(size) {
@@ -10,7 +10,6 @@ class World {
 
     this.trafficLights = {};
     this.roads = [];
-
     this.ready = false;
     this.stateUpdate = false;
   }
@@ -31,32 +30,30 @@ class World {
       road.update();
 
       const keys = road.getTrafficLightIds();
-      const traffic_lights = getObjectValuesByKeys(this.trafficLights, keys);
+      const traffic_lights = filterObjectByKeys(this.trafficLights, keys);
 
       for (const car of road.getCars()) {
-        for (const traffic_light of traffic_lights) {
-          if (traffic_light.isUnitWithinQueueRadius(car) && !car.isInQueue() && !car.isUnstoppable()) {
+        for (const [key, traffic_light] of Object.entries(traffic_lights)) {
+          if (traffic_light.isUnitWithinQueueRadius(car) &&!car.isTrafficLightInQueue(key)) {
             traffic_light.incrementQueue();
-            car.setInQueue(true);
+            car.addTrafficLightToQueue(key);
             this.stateUpdate = true;
           }
 
-          if (traffic_light.isUnitWithinStopRadius(car) && car.isInQueue()) {
+          if (traffic_light.isUnitWithinStopRadius(car) && car.isTrafficLightInQueue(key)) {
             if (car.isMoving() && traffic_light.isRed()) {
               car.stop();
             }
 
             if (car.isMoving() && traffic_light.isGreen()) {
-              car.setInQueue(false);
-              car.setUnstoppable(true);
+              car.deleteTrafficLightFromQueue(key);
               traffic_light.decrementQueue();
               this.stateUpdate = true;
             }
 
             if (!car.isMoving() && traffic_light.isGreen()) {
               car.start();
-              car.setInQueue(false);
-              car.setUnstoppable(true);
+              car.deleteTrafficLightFromQueue(key);
               traffic_light.decrementQueue();
               this.stateUpdate = true;
             }

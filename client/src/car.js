@@ -9,8 +9,8 @@ class Car {
     this.moving = true;
     this.trafficLightChecks = 0;
     this.isFinishedAnim = false;
-    this.inQueue = false;
-    this.unstoppable = false;
+    this.trafficLightQueues = [];
+    this.passedTrafficLights = [];
     this.collisionRadius = this.size.w * 1.5;
     this.startDelay = 100;
     this.collision = false;
@@ -53,32 +53,37 @@ class Car {
     ctx.translate(-(this.position.x), -(this.position.y));
   }
 
+  addTrafficLightToQueue(id) {
+    const index = this.passedTrafficLights.indexOf(id);
+
+    if (index === -1) {
+      this.trafficLightQueues.push(id);
+    }
+  }
+
+  deleteTrafficLightFromQueue(id) {
+    const index = this.trafficLightQueues.indexOf(id);
+
+    if (index > -1) {
+      this.trafficLightQueues.splice(index, 1);
+      this.passedTrafficLights.push(id);
+    }
+  }
+
+  isTrafficLightInQueue(id) {
+    return this.trafficLightQueues.indexOf(id) > -1;
+  }
+
   getPosition() {
     return this.position;
   }
 
   isMoving() {
-    return this.moving === true;
+    return this.moving;
   }
 
   isFlaggedForDespawn() {
-    return this.isFinishedAnim === true;
-  }
-
-  isInQueue() {
-    return this.inQueue === true;
-  }
-
-  setInQueue(flag) {
-    this.inQueue = flag;
-  }
-
-  isUnstoppable() {
-    return this.unstoppable === true;
-  }
-
-  setUnstoppable(flag) {
-    this.unstoppable = flag;
+    return this.isFinishedAnim;
   }
 
   isCollidingOther(car) {

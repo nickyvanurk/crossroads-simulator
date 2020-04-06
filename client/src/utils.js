@@ -4,17 +4,17 @@ const TrafficStates = {
   Green: 2
 }
 
-const getObjectValuesByKeys = (obj, keys) => {
-  let values = [];
+const filterObjectByKeys = (obj, keys) => {
+  let newObj = {};
 
   Object.keys(obj)
         .filter(key => keys.includes(key))
-        .forEach(key => values.push(obj[key]));
+        .forEach(key => newObj[key] = obj[key]);
 
-  return values;
+  return newObj;
 }
 
 export {
   TrafficStates,
-  getObjectValuesByKeys
+  filterObjectByKeys
 };
