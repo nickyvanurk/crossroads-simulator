@@ -100,19 +100,19 @@
     "stopRadius": 85
   },
   "EV2": {
-    "position": { "x": 476, "y": 211 },
-    "queueRadius": 250,
-    "stopRadius": 85
+    "position": { "x": 497, "y": 211 },
+    "queueRadius": 200,
+    "stopRadius": 35
   },
   "EV3": {
-    "position": { "x": 497, "y": 211 },
+    "position": { "x": 476, "y": 211 },
     "queueRadius": 250,
     "stopRadius": 85
   },
   "EV4": {
     "position": { "x": 555, "y": 191 },
-    "queueRadius": 250,
-    "stopRadius": 85
+    "queueRadius": 200,
+    "stopRadius": 35
   },
   "FF1": {
     "position": { "x": 337, "y": 463 },

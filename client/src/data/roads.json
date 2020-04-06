@@ -16,5 +16,7 @@
 
   "road-d1": ["D1"],
   "road-d2": ["D2"],
-  "road-d3": ["D3"]
+  "road-d3": ["D3"],
+
+  "road-ev4": ["EV4", "EV2"]
 }
