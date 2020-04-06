@@ -9,11 +9,17 @@ class Road {
     this.cars = [];
   }
 
-  update() {
+  update(worldSize) {
     if (!this.hasTraffic()) return;
 
-    if (this.firstCar().isFlaggedForDespawn()) {
-      this.despawnCar();
+    for (const car of this.cars) {
+      if (car.passedTrafficLights.length > 0 &&
+          (car.position.x + car.size.w < 0 ||
+           car.position.y + car.size.h < 0 ||
+           car.position.x - car.size.w > worldSize.w ||
+           car.position.y - car.size.h > worldSize.h)) {
+        this.despawnCar(car);
+      }
     }
 
     for (let i = 1; i < this.cars.length; i++) {
@@ -45,10 +51,8 @@ class Road {
     }
   }
 
-  despawnCar() {
-    if (this.hasTraffic()) {
-      this.cars.shift();
-    }
+  despawnCar(car) {
+    this.cars.splice(this.cars.indexOf(car), 1);
   }
 
   hasTraffic() {

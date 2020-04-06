@@ -27,7 +27,7 @@ class World {
     this.stateUpdate = false;
 
     for (const road of this.roads) {
-      road.update();
+      road.update(this.size);
 
       const keys = road.getTrafficLightIds();
       const traffic_lights = filterObjectByKeys(this.trafficLights, keys);

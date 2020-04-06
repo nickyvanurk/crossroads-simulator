@@ -8,7 +8,6 @@ class Unit {
                           (60 + 10 * Math.random()) + '%)';
     this.moving = true;
     this.trafficLightChecks = 0;
-    this.isFinishedAnim = false;
     this.trafficLightQueues = [];
     this.passedTrafficLights = [];
     this.collisionRadius = this.size.w * 1.5;
@@ -26,9 +25,7 @@ class Unit {
       this.position.x = moveToPoint.x;
       this.position.y = moveToPoint.y;
       this.angle = moveToPoint.alpha;
-    }, animTime, () => {
-      this.isFinishedAnim = true;
-    });
+    }, animTime);
   }
 
   stop() {
@@ -80,10 +77,6 @@ class Unit {
 
   isMoving() {
     return this.moving;
-  }
-
-  isFlaggedForDespawn() {
-    return this.isFinishedAnim;
   }
 
   isCollidingOther(car) {
