@@ -247,7 +247,7 @@ class TrafficLight:
       self.change_state(Color.GREEN)
       active_roads[self.cardinal_direction['destination']].append(self)
 
-      await asyncio.sleep(6)
+      await asyncio.sleep(8)
 
       emitter.emit('red-traffic-light', self.id)
       self.change_state(Color.RED)
@@ -278,7 +278,7 @@ class World:
     self.traffic_lights_to_move_to_end = [];
 
     self.start_time = time.time()
-    self.clearance_time = 3
+    self.clearance_time = 6
     self.allow_green = True
 
   def generate_traffic_lights(self, traffic_light_data):
