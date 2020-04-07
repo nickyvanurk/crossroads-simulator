@@ -51,11 +51,7 @@ class Unit {
   }
 
   addTrafficLightToQueue(id) {
-    const index = this.passedTrafficLights.indexOf(id);
-
-    if (index === -1) {
-      this.trafficLightQueues.push(id);
-    }
+    this.trafficLightQueues.push(id);
   }
 
   deleteTrafficLightFromQueue(id) {
@@ -69,6 +65,10 @@ class Unit {
 
   isTrafficLightInQueue(id) {
     return this.trafficLightQueues.indexOf(id) > -1;
+  }
+
+  isPassedTrafficLight(id) {
+    return this.passedTrafficLights.indexOf(id) > -1;
   }
 
   getPosition() {

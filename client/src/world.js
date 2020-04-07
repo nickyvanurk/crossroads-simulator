@@ -34,13 +34,17 @@ class World {
 
       for (const car of road.getCars()) {
         for (const [key, traffic_light] of Object.entries(traffic_lights)) {
-          if (traffic_light.isUnitWithinQueueRadius(car) &&!car.isTrafficLightInQueue(key)) {
+          if (traffic_light.isUnitWithinQueueRadius(car) &&
+              !car.isTrafficLightInQueue(key) &&
+              !car.isPassedTrafficLight(key)) {
             traffic_light.incrementQueue();
             car.addTrafficLightToQueue(key);
             this.stateUpdate = true;
           }
 
-          if (traffic_light.isUnitWithinStopRadius(car) && car.isTrafficLightInQueue(key)) {
+          if (traffic_light.isUnitWithinStopRadius(car) &&
+              car.isTrafficLightInQueue(key) &&
+              !car.isPassedTrafficLight(key)) {
             if (car.isMoving() && traffic_light.isRed()) {
               car.stop();
             }
