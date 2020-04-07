@@ -3,11 +3,16 @@ import Pedestrian from './pedestrian';
 import Bicycle from './bicycle';
 
 class Road {
-  constructor(id, type, trafficLightIds) {
+  constructor(id, type, trafficLightIds, spawnTimer) {
     this.id = id;
     this.type = type;
     this.trafficLightIds = trafficLightIds;
+    this.spawnTimer = spawnTimer;
     this.cars = [];
+  }
+
+  init() {
+    setInterval(this.spawnCar().bind(this), this.spawnTimer);
   }
 
   update(worldSize) {

@@ -2,106 +2,132 @@
 
   "road-a1": {
     "type": "car",
-    "trafficLightIds": ["A1"]
+    "trafficLightIds": ["A1"],
+    "spawnTimer": 5000
   },
   "road-a2": {
     "type": "car",
-    "trafficLightIds": ["A2"]
+    "trafficLightIds": ["A2"],
+    "spawnTimer": 5000
   },
   "road-a3": {
     "type": "car",
-    "trafficLightIds": ["A3"]
+    "trafficLightIds": ["A3"],
+    "spawnTimer": 5000
   },
   "road-a4": {
     "type": "car",
-    "trafficLightIds": ["A4"]
+    "trafficLightIds": ["A4"],
+    "spawnTimer": 5000
   },
   "road-b1": {
     "type": "car",
-    "trafficLightIds": ["B1"]
+    "trafficLightIds": ["B1"],
+    "spawnTimer": 5000
   },
   "road-b2": {
     "type": "car",
-    "trafficLightIds": ["B2"]
+    "trafficLightIds": ["B2"],
+    "spawnTimer": 5000
   },
   "road-b3": {
     "type": "car",
-    "trafficLightIds": ["B3"]
+    "trafficLightIds": ["B3"],
+    "spawnTimer": 5000
   },
   "road-b4": {
     "type": "car",
-    "trafficLightIds": ["B4"]
+    "trafficLightIds": ["B4"],
+    "spawnTimer": 5000
   },
   "road-c1": {
     "type": "car",
-    "trafficLightIds": ["C1"]
+    "trafficLightIds": ["C1"],
+    "spawnTimer": 5000
   },
   "road-c2": {
     "type": "car",
-    "trafficLightIds": ["C2"]
+    "trafficLightIds": ["C2"],
+    "spawnTimer": 5000
   },
   "road-c3": {
     "type": "car",
-    "trafficLightIds": ["C3"]
+    "trafficLightIds": ["C3"],
+    "spawnTimer": 5000
   },
   "road-d1": {
     "type": "car",
-    "trafficLightIds": ["D1"]
+    "trafficLightIds": ["D1"],
+    "spawnTimer": 5000
   },
   "road-d2": {
     "type": "car",
-    "trafficLightIds": ["D2"]
+    "trafficLightIds": ["D2"],
+    "spawnTimer": 5000
   },
   "road-d3": {
     "type": "car",
-    "trafficLightIds": ["D3"]
+    "trafficLightIds": ["D3"],
+    "spawnTimer": 5000
   },
   "road-ev1": {
     "type": "pedestrian",
-    "trafficLightIds": ["EV1", "EV3"]
+    "trafficLightIds": ["EV1", "EV3"],
+    "spawnTimer": 15000
   },
   "road-ev4": {
     "type": "pedestrian",
-    "trafficLightIds": ["EV4", "EV2"]
+    "trafficLightIds": ["EV4", "EV2"],
+    "spawnTimer": 15000
   },
   "road-e1": {
     "type": "bicycle",
-    "trafficLightIds": ["E1"]
+    "trafficLightIds": ["E1"],
+    "spawnTimer": 25000
   },
   "road-e1b5": {
     "type": "car",
-    "trafficLightIds": ["E1", "B5"]
+    "trafficLightIds": ["E1", "B5"],
+    "spawnTimer": 40000
   },
   "road-ff1": {
     "type": "bicycle",
-    "trafficLightIds": ["FF1"]
+    "trafficLightIds": ["FF1"],
+    "spawnTimer": 25000
   },
   "road-ff2": {
     "type": "bicycle",
-    "trafficLightIds": ["FF2"]
+    "trafficLightIds": ["FF2"],
+    "spawnTimer": 25000
   },
   "road-fv1": {
     "type": "pedestrian",
-    "trafficLightIds": ["FV1", "FV3"]
+    "trafficLightIds": ["FV1", "FV3"],
+    "spawnTimer": 15000
   },
   "road-fv4": {
     "type": "pedestrian",
-    "trafficLightIds": ["FV4", "FV2"]
+    "trafficLightIds": ["FV4", "FV2"],
+    "spawnTimer": 15000
   },
   "road-gf1": {
     "type": "bicycle",
-    "trafficLightIds": ["GF1"]
+    "trafficLightIds": ["GF1"],
+    "spawnTimer": 25000
   },
   "road-gf2": {
     "type": "bicycle",
-    "trafficLightIds": ["GF2"]
+    "trafficLightIds": ["GF2"],
+    "spawnTimer": 25000
   },
   "road-gv1": {
     "type": "pedestrian",
-    "trafficLightIds": ["GV1", "GV3"]
+    "trafficLightIds": ["GV1", "GV3"],
+    "spawnTimer": 15000
   },
   "road-gv4": {
     "type": "pedestrian",
-    "trafficLightIds": ["GV4", "GV2"]
+    "trafficLightIds": ["GV4", "GV2"],
+    "spawnTimer": 15000
   }
 }

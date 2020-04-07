@@ -18,7 +18,11 @@ class World {
     this.generateTrafficLights(trafficLightsData);
     this.generateRoads(roadsData);
 
-    setInterval(this.spawnTraffic.bind(this), 5000);
+    for (const road of this.roads) {
+      setInterval(() => {
+        this.spawnTraffic(road);
+      }, road.spawnTimer);
+    }
 
     this.ready = true;
   }
@@ -91,7 +95,7 @@ class World {
 
   generateRoads(data) {
     for (const [key, values] of Object.entries(data)) {
-      this.roads.push(new Road(key, values.type, values.trafficLightIds));
+      this.roads.push(new Road(key, values.type, values.trafficLightIds, values.spawnTimer));
     }
   }
 
@@ -121,19 +125,17 @@ class World {
     return data;
   }
 
-  spawnTraffic() {
-    for (const road of this.roads) {
-      if (road.hasTraffic()) {
-        const lastCar = road.getLastCar();
+  spawnTraffic(road) {
+    if (road.hasTraffic()) {
+      const lastCar = road.getLastCar();
 
-        if (lastCar) {
-          if (this.isInBounds(lastCar.getPosition())) {
-            road.spawnCar();
-          }
+      if (lastCar) {
+        if (this.isInBounds(lastCar.getPosition())) {
+          road.spawnCar();
         }
-      } else {
-        road.spawnCar();
       }
+    } else {
+      road.spawnCar();
     }
   }
 
