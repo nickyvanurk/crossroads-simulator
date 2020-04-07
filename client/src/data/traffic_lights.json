@@ -116,13 +116,13 @@
   },
   "FF1": {
     "position": { "x": 337, "y": 463 },
-    "queueRadius": 250,
-    "stopRadius": 85
+    "queueRadius": 200,
+    "stopRadius": 20
   },
   "FF2": {
     "position": { "x": 310, "y": 323 },
-    "queueRadius": 250,
-    "stopRadius": 85
+    "queueRadius": 200,
+    "stopRadius": 20
   },
   "FV1": {
     "position": { "x": 290, "y": 463 },
@@ -146,13 +146,13 @@
   },
   "GF1": {
     "position": { "x": 588, "y": 535 },
-    "queueRadius": 250,
-    "stopRadius": 85
+    "queueRadius": 200,
+    "stopRadius": 20
   },
   "GF2": {
     "position": { "x": 371, "y": 545 },
-    "queueRadius": 250,
-    "stopRadius": 85
+    "queueRadius": 200,
+    "stopRadius": 20
   },
   "GV1": {
     "position": { "x": 588, "y": 565 },

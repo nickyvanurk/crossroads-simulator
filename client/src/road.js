@@ -1,5 +1,6 @@
 import Car from './car';
 import Pedestrian from './pedestrian';
+import Bicycle from './bicycle';
 
 class Road {
   constructor(id, type, trafficLightIds) {
@@ -47,6 +48,12 @@ class Road {
         break;
       case "pedestrian":
         this.cars.push(new Pedestrian(this.id));
+        break;
+      case "bicycle":
+        this.cars.push(new Bicycle(this.id));
+        break;
+      default:
+        console.log(`Can't spawn "${this.type}": not found`);
         break;
     }
   }
