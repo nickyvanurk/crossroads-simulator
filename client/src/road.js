@@ -1,4 +1,5 @@
 import Car from './car';
+import Bus from './bus';
 import Pedestrian from './pedestrian';
 import Bicycle from './bicycle';
 
@@ -56,6 +57,9 @@ class Road {
         break;
       case "bicycle":
         this.cars.push(new Bicycle(this.id));
+        break;
+      case "bus":
+        this.cars.push(new Bus(this.id));
         break;
       default:
         console.log(`Can't spawn "${this.type}": not found`);

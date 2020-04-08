@@ -21,13 +21,13 @@
   },
   "AB1": {
     "position": { "x": 598, "y": 632 },
-    "queueRadius": 250,
-    "stopRadius": 85
+    "queueRadius": 80,
+    "stopRadius": 57
   },
   "AB2": {
     "position": { "x": 598, "y": 652 },
-    "queueRadius": 250,
-    "stopRadius": 85
+    "queueRadius": 80,
+    "stopRadius": 38
   },
   "B1": {
     "position": { "x": 459, "y": 283 },
@@ -57,7 +57,7 @@
   "BB1": {
     "position": { "x": 358, "y": 283 },
     "queueRadius": 250,
-    "stopRadius": 85
+    "stopRadius": 140
   },
   "C1": {
     "position": { "x": 598, "y": 369 },

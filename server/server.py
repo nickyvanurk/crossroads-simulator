@@ -215,7 +215,9 @@ class TrafficLight:
         self.is_intersect(dir1, dir2, 'W', 'S', 'W', 'W') or
         self.is_intersect(dir1, dir2, 'S', 'E', 'S', 'S') or
         self.is_intersect(dir1, dir2, 'S', 'N', 'S', 'S') or
-        self.is_intersect(dir1, dir2, 'S', 'W', 'S', 'S')):
+        self.is_intersect(dir1, dir2, 'S', 'W', 'S', 'S') or
+        self.is_intersect(dir1, dir2, 'N', 'S', 'N', 'W') or
+        self.is_intersect(dir1, dir2, 'S', 'E', 'S', 'E')):
       return False
 
     return True
@@ -243,6 +245,24 @@ class TrafficLight:
                                traffic_light.cardinal_direction):
             return
 
+      if (self.is_bus() and self.cardinal_direction['destination'] == 'N' and
+         len(active_roads[self.cardinal_direction['destination']])):
+        return
+
+      if (self.is_bus() and self.cardinal_direction['destination'] == 'N' and
+         len(active_roads['E']) > 0):
+        return
+
+      if (self.is_car()):
+        for traffic_light in active_roads[self.cardinal_direction['destination']]:
+          if traffic_light.is_bus():
+            return
+
+        if self.cardinal_direction['destination'] == 'E':
+          for traffic_light in active_roads['N']:
+            if traffic_light.is_bus():
+              return
+
       emitter.emit('green-traffic-light', self.id)
       self.change_state(Color.GREEN)
       active_roads[self.cardinal_direction['destination']].append(self)
@@ -266,6 +286,11 @@ class TrafficLight:
   def is_red(self):
     return self.state == Color.RED
 
+  def is_bus(self):
+    return self.id[1] == 'B'
+
+  def is_car(self):
+    return len(self.id) == 2
 
 class World:
   """A world containg all traffic lights logic"""
@@ -363,6 +388,27 @@ async def index(websocket, path):
 
     asyncio.ensure_future(world.update())
 
+
+# async def index():
+#     uri = "ws://serene-woodland-92641.herokuapp.com/?group=14&type=controller"
+#     async with websockets.connect(uri) as websocket:
+#         world = World(websocket, traffic_light_data)
+#         emitter.on('state-change', world.send_state)
+#         emitter.on('red-traffic-light', world.red_traffic_light_event)
+#         emitter.on('green-traffic-light', world.green_traffic_light_event)
+
+#         print('Connected')
+
+
+#         message = await websocket.recv()
+#         simulation_state = json.loads(message)
+
+#         # print(simulation_state)
+
+#         world.process_simulation_state(simulation_state)
+#         asyncio.ensure_future(world.update())
+
+# asyncio.get_event_loop().run_until_complete(index())
 
 start_server = websockets.serve(index, '127.0.0.1', 8080)
 
