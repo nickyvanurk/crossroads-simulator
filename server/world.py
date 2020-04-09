@@ -1,6 +1,7 @@
 import asyncio
 import json
 import time
+from eventemitter import EventEmitter
 from collections import OrderedDict
 from traffic_light import TrafficLight
 
@@ -8,11 +9,11 @@ from traffic_light import TrafficLight
 class World:
     """A world containg all traffic lights logic"""
 
-    def __init__(self, websocket, traffic_light_data, emitter, active_roads):
+    def __init__(self, websocket, traffic_light_data):
         self.websocket = websocket
         self.traffic_lights = OrderedDict()
-        self.emitter = emitter
-        self.active_roads = active_roads
+        self.emitter = EventEmitter()
+        self.active_roads = {'N': [], 'E': [], 'S': [], 'W': []}
 
         self.traffic_lights_to_move_to_end = []
 
@@ -21,6 +22,11 @@ class World:
         self.allow_green = True
 
         self.generate_traffic_lights(traffic_light_data)
+
+        self.emitter.on('state-change', self.send_state)
+        self.emitter.on('red-traffic-light', self.red_traffic_light_event)
+        self.emitter.on('orange-traffic-light', self.orange_traffic_light_event)
+        self.emitter.on('green-traffic-light', self.green_traffic_light_event)
 
     def generate_traffic_lights(self, traffic_light_data):
         for id, cardinal_direction in traffic_light_data.items():
@@ -82,7 +88,7 @@ class World:
         return True
 
     def get_state(self):
-        state = { }
+        state = {}
 
         for key, traffic_light in self.traffic_lights.items():
             state[key] = traffic_light.state.value
