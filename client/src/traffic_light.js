@@ -48,6 +48,10 @@ export default class TrafficLight {
     return this.state === TrafficStates.Red;
   }
 
+  isOrange() {
+    return this.state === TrafficStates.Orange;
+  }
+
   isGreen() {
     return this.state === TrafficStates.Green;
   }

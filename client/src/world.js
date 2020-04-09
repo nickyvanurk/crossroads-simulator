@@ -49,7 +49,7 @@ class World {
           if (traffic_light.isUnitWithinStopRadius(car) &&
               car.isTrafficLightInQueue(key) &&
               !car.isPassedTrafficLight(key)) {
-            if (car.isMoving() && traffic_light.isRed()) {
+            if (car.isMoving() && (traffic_light.isRed() ||  traffic_light.isOrange())) {
               car.stop();
             }
 
