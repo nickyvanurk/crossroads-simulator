@@ -1,0 +1,142 @@
+{
+  "A1": {
+    "origin": "S",
+    "destination": "W"
+  },
+  "A2": {
+    "origin": "S",
+    "destination": "N"
+  },
+  "A3": {
+  "origin": "S",
+    "destination": "N"
+  },
+  "A4": {
+    "origin": "S",
+    "destination": "E"
+  },
+  "AB1": {
+    "origin": "S",
+    "destination": "N"
+  },
+  "AB2": {
+    "origin": "S",
+    "destination": "E"
+  },
+  "B1": {
+    "origin": "N",
+    "destination": "E"
+  },
+  "B2": {
+    "origin": "N",
+    "destination": "S"
+  },
+  "B3": {
+    "origin": "N",
+    "destination": "S"
+  },
+  "B4": {
+    "origin": "N",
+    "destination": "W"
+  },
+  "B5": {
+    "origin": "W",
+    "destination": "W"
+  },
+  "BB1": {
+    "origin": "N",
+    "destination": "S"
+  },
+  "C1": {
+    "origin": "E",
+    "destination": "S"
+  },
+  "C2": {
+    "origin": "E",
+    "destination": "W"
+  },
+  "C3": {
+    "origin": "E",
+    "destination": "N"
+  },
+  "D1": {
+    "origin": "W",
+    "destination": "N"
+  },
+  "D2": {
+    "origin": "W",
+    "destination": "E"
+  },
+  "D3": {
+    "origin": "W",
+    "destination": "S"
+  },
+  "E1": {
+    "origin": "N",
+    "destination": "N"
+  },
+  "EV1": {
+    "origin": "N",
+    "destination": "N"
+  },
+  "EV2": {
+    "origin": "N",
+    "destination": "N"
+  },
+  "EV3": {
+    "origin": "N",
+    "destination": "N"
+  },
+  "EV4": {
+    "origin": "N",
+    "destination": "N"
+  },
+  "FF1": {
+    "origin": "W",
+    "destination": "W"
+  },
+  "FF2": {
+    "origin": "W",
+    "destination": "W"
+  },
+  "FV1": {
+    "origin": "W",
+    "destination": "W"
+  },
+  "FV2": {
+    "origin": "W",
+    "destination": "W"
+  },
+  "FV3": {
+    "origin": "W",
+    "destination": "W"
+  },
+  "FV4": {
+    "origin": "W",
+    "destination": "W"
+  },
+  "GF1": {
+    "origin": "S",
+    "destination": "S"
+  },
+  "GF2": {
+    "origin": "S",
+    "destination": "S"
+  },
+  "GV1": {
+    "origin": "S",
+    "destination": "S"
+  },
+  "GV2": {
+    "origin": "S",
+    "destination": "S"
+  },
+  "GV3": {
+    "origin": "S",
+    "destination": "S"
+  },
+  "GV4": {
+    "origin": "S",
+    "destination": "S"
+  }
+}
