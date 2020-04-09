@@ -269,6 +269,11 @@ class TrafficLight:
 
       await asyncio.sleep(8)
 
+      emitter.emit('orange-traffic-light', self.id)
+      self.change_state(Color.ORANGE)
+
+      await asyncio.sleep(3.5)
+
       emitter.emit('red-traffic-light', self.id)
       self.change_state(Color.RED)
       active_roads[self.cardinal_direction['destination']].remove(self)
@@ -350,6 +355,9 @@ class World:
     if self.is_all_traffic_lights_red():
       self.allow_green = True
 
+  def orange_traffic_light_event(self, id):
+    pass
+
   def green_traffic_light_event(self, id):
     self.traffic_lights_to_move_to_end.append(id);
 
@@ -375,6 +383,7 @@ async def index(websocket, path):
   world = World(websocket, traffic_light_data)
   emitter.on('state-change', world.send_state)
   emitter.on('red-traffic-light', world.red_traffic_light_event)
+  emitter.on('orange-traffic-light', world.orange_traffic_light_event)
   emitter.on('green-traffic-light', world.green_traffic_light_event)
 
   print('Connected')
