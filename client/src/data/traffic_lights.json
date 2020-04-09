@@ -96,23 +96,23 @@
   },
   "EV1": {
     "position": { "x": 350, "y": 191 },
-    "queueRadius": 200,
-    "stopRadius": 22
+    "queueRadius": 400,
+    "stopRadius": 130
   },
   "EV2": {
-    "position": { "x": 476, "y": 191 },
-    "queueRadius": 200,
-    "stopRadius": 20
-  },
-  "EV3": {
     "position": { "x": 497, "y": 191 },
     "queueRadius": 200,
-    "stopRadius": 22
+    "stopRadius": 60
+  },
+  "EV3": {
+    "position": { "x": 476, "y": 191 },
+    "queueRadius": 300,
+    "stopRadius": 130
   },
   "EV4": {
     "position": { "x": 555, "y": 191 },
-    "queueRadius": 200,
-    "stopRadius": 20
+    "queueRadius": 400,
+    "stopRadius": 65
   },
   "FF1": {
     "position": { "x": 337, "y": 463 },
@@ -126,23 +126,23 @@
   },
   "FV1": {
     "position": { "x": 290, "y": 463 },
-    "queueRadius": 200,
-    "stopRadius": 15
+    "queueRadius": 400,
+    "stopRadius": 92
   },
   "FV2": {
-    "position": { "x": 290, "y": 384 },
-    "queueRadius": 200,
-    "stopRadius": 25
-  },
-  "FV3": {
     "position": { "x": 290, "y": 364 },
     "queueRadius": 200,
-    "stopRadius": 25
+    "stopRadius": 55
+  },
+  "FV3": {
+    "position": { "x": 290, "y": 384 },
+    "queueRadius": 200,
+    "stopRadius": 80
   },
   "FV4": {
     "position": { "x": 290, "y": 323 },
-    "queueRadius": 250,
-    "stopRadius": 20
+    "queueRadius": 400,
+    "stopRadius": 46
   },
   "GF1": {
     "position": { "x": 588, "y": 535 },
@@ -156,22 +156,22 @@
   },
   "GV1": {
     "position": { "x": 588, "y": 565 },
-    "queueRadius": 200,
-    "stopRadius": 18
+    "queueRadius": 300,
+    "stopRadius": 120
   },
   "GV2": {
-    "position": { "x": 476, "y": 565 },
-    "queueRadius": 200,
-    "stopRadius": 18
-  },
-  "GV3": {
     "position": { "x": 456, "y": 565 },
     "queueRadius": 200,
-    "stopRadius": 18
+    "stopRadius": 100
+  },
+  "GV3": {
+    "position": { "x": 476, "y": 565 },
+    "queueRadius": 300,
+    "stopRadius": 125
   },
   "GV4": {
     "position": { "x": 371, "y": 565 },
-    "queueRadius": 200,
-    "stopRadius": 18
+    "queueRadius": 400,
+    "stopRadius": 90
   }
 }
