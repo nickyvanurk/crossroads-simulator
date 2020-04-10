@@ -2,176 +2,211 @@
   "A1": {
     "position": { "x": 489, "y": 497 },
     "queueRadius": 250,
-    "stopRadius": 103
+    "stopRadius": 103,
+    "facing": { "x": 0, "y": 1 }
   },
   "A2": {
     "position": { "x": 514, "y": 497 },
     "queueRadius": 250,
-    "stopRadius": 103
+    "stopRadius": 103,
+    "facing": { "x": 0, "y": 1 }
   },
   "A3": {
     "position": { "x": 536, "y": 497 },
     "queueRadius": 250,
-    "stopRadius": 103
+    "stopRadius": 103,
+    "facing": { "x": 0, "y": 1 }
   },
   "A4": {
     "position": { "x": 560, "y": 497 },
     "queueRadius": 250,
-    "stopRadius": 178
+    "stopRadius": 178,
+    "facing": { "x": 0, "y": 1 }
   },
   "AB1": {
     "position": { "x": 598, "y": 632 },
     "queueRadius": 80,
-    "stopRadius": 57
+    "stopRadius": 57,
+    "facing": { "x": 0, "y": 1 }
   },
   "AB2": {
     "position": { "x": 598, "y": 652 },
     "queueRadius": 80,
-    "stopRadius": 38
+    "stopRadius": 38,
+    "facing": { "x": 0, "y": 1 }
   },
   "B1": {
     "position": { "x": 459, "y": 283 },
     "queueRadius": 250,
-    "stopRadius": 134
+    "stopRadius": 134,
+    "facing": { "x": 0, "y": -1 }
   },
   "B2": {
     "position": { "x": 439, "y": 283 },
     "queueRadius": 250,
-    "stopRadius": 134
+    "stopRadius": 134,
+    "facing": { "x": 0, "y": -1 }
   },
   "B3": {
     "position": { "x": 419, "y": 283 },
     "queueRadius": 250,
-    "stopRadius": 134
+    "stopRadius": 134,
+    "facing": { "x": 0, "y": -1 }
   },
   "B4": {
     "position": { "x": 390, "y": 283 },
     "queueRadius": 250,
-    "stopRadius": 134
+    "stopRadius": 134,
+    "facing": { "x": 0, "y": -1 }
   },
   "B5": {
     "position": { "x": 195, "y": 316 },
     "queueRadius": 250,
-    "stopRadius": 46
+    "stopRadius": 46,
+    "facing": { "x": 1, "y": 1 }
   },
   "BB1": {
     "position": { "x": 358, "y": 283 },
     "queueRadius": 250,
-    "stopRadius": 140
+    "stopRadius": 140,
+    "facing": { "x": 0, "y": -1 }
   },
   "C1": {
     "position": { "x": 598, "y": 369 },
     "queueRadius": 250,
-    "stopRadius": 30
+    "stopRadius": 30,
+    "facing": { "x": 1, "y": 0 }
   },
   "C2": {
     "position": { "x": 598, "y": 346 },
     "queueRadius": 250,
-    "stopRadius": 30
+    "stopRadius": 30,
+    "facing": { "x": 1, "y": 0 }
   },
   "C3": {
     "position": { "x": 598, "y": 322 },
     "queueRadius": 250,
-    "stopRadius": 30
+    "stopRadius": 30,
+    "facing": { "x": 1, "y": 0 }
   },
   "D1": {
     "position": { "x": 342, "y": 398 },
     "queueRadius": 250,
-    "stopRadius": 85
+    "stopRadius": 85,
+    "facing": { "x": -1, "y": 0 }
   },
   "D2": {
     "position": { "x": 342, "y": 419 },
     "queueRadius": 250,
-    "stopRadius": 85
+    "stopRadius": 85,
+    "facing": { "x": -1, "y": 0 }
   },
   "D3": {
     "position": { "x": 342, "y": 442 },
     "queueRadius": 250,
-    "stopRadius": 85
+    "stopRadius": 85,
+    "facing": { "x": -1, "y": 0 }
   },
   "E1": {
     "position": { "x": 555, "y": 225 },
     "queueRadius": 250,
-    "stopRadius": 32
+    "stopRadius": 32,
+    "facing": { "x": 1, "y": 0 }
   },
   "EV1": {
     "position": { "x": 350, "y": 191 },
     "queueRadius": 400,
-    "stopRadius": 130
+    "stopRadius": 130,
+    "facing": { "x": 1, "y": 0 }
   },
   "EV2": {
     "position": { "x": 497, "y": 191 },
     "queueRadius": 200,
-    "stopRadius": 60
+    "stopRadius": 60,
+    "facing": { "x": 1, "y": 0 }
   },
   "EV3": {
     "position": { "x": 476, "y": 191 },
     "queueRadius": 300,
-    "stopRadius": 130
+    "stopRadius": 130,
+    "facing": { "x": -1, "y": 0 }
   },
   "EV4": {
     "position": { "x": 555, "y": 191 },
     "queueRadius": 400,
-    "stopRadius": 65
+    "stopRadius": 65,
+    "facing": { "x": -1, "y": 0 }
   },
   "FF1": {
     "position": { "x": 337, "y": 463 },
     "queueRadius": 200,
-    "stopRadius": 20
+    "stopRadius": 20,
+    "facing": { "x": 0, "y": 1 }
   },
   "FF2": {
     "position": { "x": 310, "y": 323 },
     "queueRadius": 200,
-    "stopRadius": 20
+    "stopRadius": 20,
+    "facing": { "x": 0, "y": -1 }
   },
   "FV1": {
     "position": { "x": 290, "y": 463 },
     "queueRadius": 400,
-    "stopRadius": 92
+    "stopRadius": 92,
+    "facing": { "x": 0, "y": -1 }
   },
   "FV2": {
     "position": { "x": 290, "y": 364 },
     "queueRadius": 200,
-    "stopRadius": 55
+    "stopRadius": 55,
+    "facing": { "x": 0, "y": -1 }
   },
   "FV3": {
     "position": { "x": 290, "y": 384 },
     "queueRadius": 200,
-    "stopRadius": 80
+    "stopRadius": 80,
+    "facing": { "x": 0, "y": 1 }
   },
   "FV4": {
     "position": { "x": 290, "y": 323 },
     "queueRadius": 400,
-    "stopRadius": 46
+    "stopRadius": 46,
+    "facing": { "x": 0, "y": 1 }
   },
   "GF1": {
     "position": { "x": 588, "y": 535 },
     "queueRadius": 200,
-    "stopRadius": 20
+    "stopRadius": 20,
+    "facing": { "x": 1, "y": 0 }
   },
   "GF2": {
     "position": { "x": 371, "y": 545 },
     "queueRadius": 200,
-    "stopRadius": 20
+    "stopRadius": 20,
+    "facing": { "x": -1, "y": 0 }
   },
   "GV1": {
     "position": { "x": 588, "y": 565 },
     "queueRadius": 300,
-    "stopRadius": 120
+    "stopRadius": 120,
+    "facing": { "x": -1, "y": 0 }
   },
   "GV2": {
     "position": { "x": 456, "y": 565 },
     "queueRadius": 200,
-    "stopRadius": 100
+    "stopRadius": 100,
+    "facing": { "x": -1, "y": 0 }
   },
   "GV3": {
     "position": { "x": 476, "y": 565 },
     "queueRadius": 300,
-    "stopRadius": 125
+    "stopRadius": 125,
+    "facing": { "x": 1, "y": 0 }
   },
   "GV4": {
     "position": { "x": 371, "y": 565 },
     "queueRadius": 400,
-    "stopRadius": 90
+    "stopRadius": 90,
+    "facing": { "x": 1, "y": 0 }
   }
 }

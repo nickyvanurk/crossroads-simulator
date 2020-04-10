@@ -1,13 +1,16 @@
 import { TrafficStates } from './utils';
 
 export default class TrafficLight {
-  constructor(position, queueRadius, stopRadius) {
+  constructor(position, facing, queueRadius, stopRadius) {
     this.position = position;
+    this.facing = facing;
+
     this.queueRadius = queueRadius;
     this.stopRadius = stopRadius;
 
     this.state = TrafficStates.Red;
-    this.queuedUnits = 0;
+
+    this.queue = [];
   }
 
   changeState(state) {
@@ -56,39 +59,56 @@ export default class TrafficLight {
     return this.state === TrafficStates.Green;
   }
 
-  setNumQueuedUnits(num) {
-    this.queuedUnits = num;
+  getQueueCount() {
+    return this.queue.length;
   }
 
-  incrementQueue() {
-    this.queuedUnits++;
-  }
-
-  decrementQueue() {
-    this.queuedUnits--;
-  }
-
-  getQueuedUnits() {
-    return this.queuedUnits;
-  }
-
-  isUnitWithinStopRadius(unit) {
+  isWithinStopRadius(unit) {
     const pos1 = unit.getPosition();
     const pos2 = this.position;
 
     const distance = Math.sqrt(Math.pow(Math.abs(pos1.x - pos2.x), 2) +
                                Math.pow(Math.abs(pos1.y - pos2.y), 2));
 
-    return distance <= this.stopRadius;
+    const distanceVec = { x: pos1.x - pos2.x, y: pos1.y - pos2.y };
+    const dot = this.getDotProduct(this.facing, distanceVec);
+
+    return distance <= this.stopRadius &&
+           dot > 0; // Half-circle detection
   }
 
-  isUnitWithinQueueRadius(unit) {
+  isWithinQueueRadius(unit) {
     const pos1 = unit.getPosition();
     const pos2 = this.position;
 
     const distance = Math.sqrt(Math.pow(Math.abs(pos1.x - pos2.x), 2) +
                                Math.pow(Math.abs(pos1.y - pos2.y), 2));
 
-    return distance <= this.queueRadius;
+    const distanceVec = { x: pos1.x - pos2.x, y: pos1.y - pos2.y };
+    const dot = this.getDotProduct(this.facing, distanceVec);
+
+    return distance > this.stopRadius &&
+           distance <= this.queueRadius &&
+           dot > 0; // Half-circle detection
+  }
+
+  addToQueue(unit) {
+    this.queue.push(unit);
+  }
+
+  removeFromQueue(unit) {
+    const index = this.queue.indexOf(unit);
+
+    if (index > -1) {
+      this.queue.splice(index, 1);
+    }
+  }
+
+  isInQueue(unit) {
+    return this.queue.indexOf(unit) > -1;
+  }
+
+  getDotProduct(vec1, vec2) {
+    return vec1.x*vec2.x + vec1.y*vec2.y;
   }
 }

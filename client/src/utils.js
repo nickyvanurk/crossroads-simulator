@@ -5,13 +5,13 @@ const TrafficStates = {
 }
 
 const filterObjectByKeys = (obj, keys) => {
-  let newObj = {};
+  let arr = [];
 
   Object.keys(obj)
         .filter(key => keys.includes(key))
-        .forEach(key => newObj[key] = obj[key]);
+        .forEach(key => arr.push(obj[key]));
 
-  return newObj;
+  return arr;
 }
 
 export {

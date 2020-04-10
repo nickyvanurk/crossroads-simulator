@@ -7,17 +7,13 @@ class Unit {
                           (95 + 70 * Math.random()) + '%,' +
                           (60 + 10 * Math.random()) + '%)';
     this.moving = true;
-    this.trafficLightChecks = 0;
-    this.trafficLightQueues = [];
-    this.passedTrafficLights = [];
     this.collisionRadius = this.size.w * 1.5;
-    this.startDelay = 100;
     this.collision = false;
+
+    this.readyForDespawn = false;
 
     const road = document.getElementById(roadId).getElementsByTagName('path')[0].getAttribute('d');;
     const roadLength = Snap.path.getTotalLength(road);
-
-    this.numPaused = 0;
 
     this.anim = Snap.animate(0, roadLength, async (step) => {
       const moveToPoint = Snap.path.getPointAtLength(road, step);
@@ -34,10 +30,8 @@ class Unit {
   }
 
   start() {
-    // setTimeout(() => {
-      this.moving = true;
-      this.anim.resume();
-    // }, this.startDelay);
+    this.moving = true;
+    this.anim.resume();
   }
 
   draw(ctx) {
@@ -48,19 +42,6 @@ class Unit {
     ctx.stroke();
     ctx.rotate(-(this.angle * Math.PI / 180));
     ctx.translate(-(this.position.x), -(this.position.y));
-  }
-
-  addTrafficLightToQueue(id) {
-    this.trafficLightQueues.push(id);
-  }
-
-  deleteTrafficLightFromQueue(id) {
-    const index = this.trafficLightQueues.indexOf(id);
-
-    if (index > -1) {
-      this.trafficLightQueues.splice(index, 1);
-      this.passedTrafficLights.push(id);
-    }
   }
 
   isTrafficLightInQueue(id) {

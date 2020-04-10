@@ -34,35 +34,32 @@ class World {
       road.update(this.size);
 
       const keys = road.getTrafficLightIds();
-      const traffic_lights = filterObjectByKeys(this.trafficLights, keys);
+      const trafficLights = filterObjectByKeys(this.trafficLights, keys);
 
       for (const car of road.getCars()) {
-        for (const [key, traffic_light] of Object.entries(traffic_lights)) {
-          if (traffic_light.isUnitWithinQueueRadius(car) &&
-              !car.isTrafficLightInQueue(key) &&
-              !car.isPassedTrafficLight(key)) {
-            traffic_light.incrementQueue();
-            car.addTrafficLightToQueue(key);
+        for (const trafficLight of trafficLights) {
+          if (trafficLight.isWithinQueueRadius(car) &&
+              !trafficLight.isInQueue(car)) {
+            trafficLight.addToQueue(car);
             this.stateUpdate = true;
           }
 
-          if (traffic_light.isUnitWithinStopRadius(car) &&
-              car.isTrafficLightInQueue(key) &&
-              !car.isPassedTrafficLight(key)) {
-            if (car.isMoving() && (traffic_light.isRed() ||  traffic_light.isOrange())) {
+          if (trafficLight.isWithinStopRadius(car) &&
+              trafficLight.isInQueue(car)) {
+            if (car.isMoving() && (trafficLight.isRed() ||  trafficLight.isOrange())) {
               car.stop();
             }
 
-            if (car.isMoving() && traffic_light.isGreen()) {
-              car.deleteTrafficLightFromQueue(key);
-              traffic_light.decrementQueue();
+            if (car.isMoving() && trafficLight.isGreen()) {
+              trafficLight.removeFromQueue(car);
+              car.readyForDespawn = true;
               this.stateUpdate = true;
             }
 
-            if (!car.isMoving() && traffic_light.isGreen()) {
+            if (!car.isMoving() && trafficLight.isGreen()) {
               car.start();
-              car.deleteTrafficLightFromQueue(key);
-              traffic_light.decrementQueue();
+              trafficLight.removeFromQueue(car);
+              car.readyForDespawn = true;
               this.stateUpdate = true;
             }
           }
@@ -88,6 +85,7 @@ class World {
   generateTrafficLights(data) {
     for (const [key, values] of Object.entries(data)) {
       this.trafficLights[key] = new TrafficLight(values.position,
+                                                 values.facing,
                                                  values.queueRadius,
                                                  values.stopRadius);
     }
@@ -119,7 +117,7 @@ class World {
     let data = {};
 
     for (const [traffic_light_id, traffic_light] of Object.entries(this.trafficLights)) {
-      data[traffic_light_id] = traffic_light.getQueuedUnits();
+      data[traffic_light_id] = traffic_light.getQueueCount();
     }
 
     return data;

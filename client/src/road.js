@@ -20,7 +20,7 @@ class Road {
     if (!this.hasTraffic()) return;
 
     for (const car of this.cars) {
-      if (car.passedTrafficLights.length > 0 &&
+      if (car.readyForDespawn &&
           (car.position.x + car.size.w < 0 ||
            car.position.y + car.size.h < 0 ||
            car.position.x - car.size.w > worldSize.w ||
