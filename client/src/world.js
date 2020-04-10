@@ -38,27 +38,23 @@ class World {
 
       for (const car of road.getCars()) {
         for (const trafficLight of trafficLights) {
-          if (trafficLight.isWithinQueueRadius(car) &&
-              !trafficLight.isInQueue(car)) {
-            trafficLight.addToQueue(car);
-            this.stateUpdate = true;
-          }
-
-          if (trafficLight.isWithinStopRadius(car) &&
-              trafficLight.isInQueue(car)) {
-            if (car.isMoving() && (trafficLight.isRed() ||  trafficLight.isOrange())) {
+          if (trafficLight.isUnitWithinRange(car)) {
+            if (!trafficLight.isUnitInQueue(car)) {
+              trafficLight.addUnitToQueue(car);
+              this.stateUpdate = true;
+            }
+          } else if (trafficLight.isUnitInQueue(car)) {
+            if (trafficLight.isStopSignal() && car.isMoving()) {
               car.stop();
             }
 
-            if (car.isMoving() && trafficLight.isGreen()) {
-              trafficLight.removeFromQueue(car);
-              car.readyForDespawn = true;
-              this.stateUpdate = true;
-            }
+            if (trafficLight.isGoSignal()) {
+              if (!car.isMoving()) {
+                car.start();
+              }
 
-            if (!car.isMoving() && trafficLight.isGreen()) {
-              car.start();
-              trafficLight.removeFromQueue(car);
+              trafficLight.removeUnitFromQueue(car);
+
               car.readyForDespawn = true;
               this.stateUpdate = true;
             }

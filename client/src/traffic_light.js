@@ -63,21 +63,7 @@ export default class TrafficLight {
     return this.queue.length;
   }
 
-  isWithinStopRadius(unit) {
-    const pos1 = unit.getPosition();
-    const pos2 = this.position;
-
-    const distance = Math.sqrt(Math.pow(Math.abs(pos1.x - pos2.x), 2) +
-                               Math.pow(Math.abs(pos1.y - pos2.y), 2));
-
-    const distanceVec = { x: pos1.x - pos2.x, y: pos1.y - pos2.y };
-    const dot = this.getDotProduct(this.facing, distanceVec);
-
-    return distance <= this.stopRadius &&
-           dot > 0; // Half-circle detection
-  }
-
-  isWithinQueueRadius(unit) {
+  isUnitWithinRange(unit) {
     const pos1 = unit.getPosition();
     const pos2 = this.position;
 
@@ -92,11 +78,11 @@ export default class TrafficLight {
            dot > 0; // Half-circle detection
   }
 
-  addToQueue(unit) {
+  addUnitToQueue(unit) {
     this.queue.push(unit);
   }
 
-  removeFromQueue(unit) {
+  removeUnitFromQueue(unit) {
     const index = this.queue.indexOf(unit);
 
     if (index > -1) {
@@ -104,11 +90,19 @@ export default class TrafficLight {
     }
   }
 
-  isInQueue(unit) {
+  isUnitInQueue(unit) {
     return this.queue.indexOf(unit) > -1;
   }
 
   getDotProduct(vec1, vec2) {
     return vec1.x*vec2.x + vec1.y*vec2.y;
+  }
+
+  isStopSignal() {
+    return this.isRed() || this.isOrange();
+  }
+
+  isGoSignal() {
+    return this.isGreen();
   }
 }
