@@ -61,18 +61,34 @@ class TrafficLight:
                 self.is_intersect(c1, c2, 'S', 'E', 'S', 'E'))
 
     async def update(self):
-        if self.has_traffic and not self.is_green():
-            for destination, traffic_lights in self.active_roads.items():
-                for traffic_light in traffic_lights:
-                    if ((destination == self.cardinals['destination'] and
-                         not self.sameCardinals(traffic_light)) or
-                        self.is_intersect_other(traffic_light)):
+        if self.has_traffic and not self.state == Color.GREEN:
+            max_green_traffic_lights = 1
+
+            for traffic_light in self.active_roads[self.cardinals['destination']]:
+                origin = traffic_light.cardinals['origin']
+                destination = traffic_light.cardinals['destination']
+
+                if (self.cardinals['origin'] != origin or
+                    self.cardinals['destination'] != destination):
+                    break
+
+                max_green_traffic_lights = 20
+
+            if len(self.active_roads[self.cardinals['destination']]) >= max_green_traffic_lights:
+                return
+
+            for cardinals in self.active_roads:
+                for traffic_light in self.active_roads[cardinals]:
+                    if self.is_intersect_other(traffic_light):
                         return
 
-            if self.is_bus() and self.cardinals['destination'] == 'N':
-                if (len(self.active_roads['N']) or
-                    len(self.active_roads['E'])):
-                    return
+            if (self.is_bus() and self.cardinals['destination'] == 'N' and
+                 len(self.active_roads[self.cardinals['destination']])):
+                return
+
+            if (self.is_bus() and self.cardinals['destination'] == 'N' and
+                 len(self.active_roads['E']) > 0):
+                return
 
             if (self.is_car()):
                 for traffic_light in self.active_roads[self.cardinals['destination']]:
@@ -84,15 +100,53 @@ class TrafficLight:
                         if traffic_light.is_bus():
                             return
 
-            self.set_green()
+            self.emitter.emit('green-traffic-light', self.id)
+            self.change_state(Color.GREEN)
             self.active_roads[self.cardinals['destination']].append(self)
-            await asyncio.sleep(self.green_time)
 
-            self.set_orange()
-            await asyncio.sleep(self.orange_time)
+            await asyncio.sleep(8)
 
-            self.set_red()
+            self.emitter.emit('orange-traffic-light', self.id)
+            self.change_state(Color.ORANGE)
+
+            await asyncio.sleep(3.5)
+
+            self.emitter.emit('red-traffic-light', self.id)
+            self.change_state(Color.RED)
             self.active_roads[self.cardinals['destination']].remove(self)
+
+        # if self.has_traffic and not self.is_green():
+        #     for destination, traffic_lights in self.active_roads.items():
+        #         for traffic_light in traffic_lights:
+        #             if ((destination == self.cardinals['destination'] and
+        #                  not self.sameCardinals(traffic_light)) or
+        #                 self.is_intersect_other(traffic_light)):
+        #                 return
+
+        #     if self.is_bus() and self.cardinals['destination'] == 'N':
+        #         if (len(self.active_roads['N']) or
+        #             len(self.active_roads['E'])):
+        #             return
+
+        #     if (self.is_car()):
+        #         for traffic_light in self.active_roads[self.cardinals['destination']]:
+        #             if traffic_light.is_bus():
+        #                 return
+
+        #         if self.cardinals['destination'] == 'E':
+        #             for traffic_light in self.active_roads['N']:
+        #                 if traffic_light.is_bus():
+        #                     return
+
+        #     self.set_green()
+        #     self.active_roads[self.cardinals['destination']].append(self)
+        #     await asyncio.sleep(self.green_time)
+
+        #     self.set_orange()
+        #     await asyncio.sleep(self.orange_time)
+
+        #     self.set_red()
+        #     self.active_roads[self.cardinals['destination']].remove(self)
 
     def change_state(self, state):
         self.state = state

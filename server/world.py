@@ -62,8 +62,6 @@ class World:
     async def send_state(self):
         payload = json.dumps(self.get_state())
 
-        # print(payload)
-
         await self.websocket.send(payload)
 
     def red_traffic_light_event(self, id):
