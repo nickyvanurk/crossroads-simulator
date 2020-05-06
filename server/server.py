@@ -14,14 +14,13 @@ async def index(websocket, path):
 
     print('Connected')
 
-    while True:
-        async for message in websocket:
-            simulation_state = json.loads(message)
-            world.process_simulation_state(simulation_state)
-            asyncio.ensure_future(world.update())
+    async for message in websocket:
+        simulation_state = json.loads(message)
+        world.process_simulation_state(simulation_state)
+        asyncio.ensure_future(world.update())
 
 
-start_server = websockets.serve(index, '127.0.0.1', 8080)
+start_server = websockets.serve(index, '127.0.0.1', 8080, ping_interval=None)
 
 asyncio.get_event_loop().run_until_complete(start_server)
 asyncio.get_event_loop().run_forever()
