@@ -133,16 +133,16 @@
   "road-ab1": {
     "type": "bus",
     "trafficLightIds": ["AB1"],
-    "spawnTimer": 7500
+    "spawnTimer": 180000
   },
   "road-ab2": {
     "type": "bus",
     "trafficLightIds": ["AB2"],
-    "spawnTimer": 5000
+    "spawnTimer": 120000
   },
   "road-bb1": {
     "type": "bus",
     "trafficLightIds": ["BB1"],
-    "spawnTimer": 5000
+    "spawnTimer": 60000
   }
 }
